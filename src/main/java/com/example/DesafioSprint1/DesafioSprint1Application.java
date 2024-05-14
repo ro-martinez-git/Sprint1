@@ -1,5 +1,6 @@
 package com.example.DesafioSprint1;
 
+import com.example.DesafioSprint1.repository.FlightRepository;
 import com.example.DesafioSprint1.repository.HotelRepository;
 import com.example.DesafioSprint1.service.HotelServiceImpl;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +13,7 @@ public class DesafioSprint1Application {
 
 		SpringApplication.run(DesafioSprint1Application.class, args);
 
-//		HotelRepository h = new HotelRepository();
+//		FlightRepository h = new FlightRepository();
 //		System.out.println(h);
 
 

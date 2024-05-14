@@ -1,5 +1,6 @@
 package com.example.DesafioSprint1.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,9 @@ public class Flight {
     private String destination;
     private String seatType;
     private Double amount;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateFrom;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateTo;
 
 }
