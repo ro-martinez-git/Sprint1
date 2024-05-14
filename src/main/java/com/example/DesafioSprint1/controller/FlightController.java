@@ -17,11 +17,14 @@ import java.util.List;
 
 public class FlightController {
 
-    @Autowired
-    private IFlightService flightService;
+    private final IFlightService flightService;
+
+    public FlightController(IFlightService flightService) {
+        this.flightService = flightService;
+    }
 
     @GetMapping("/flights")
-    public ResponseEntity<?> listFlights() {
+    public ResponseEntity<List<FlightDTO>> listFlights() {
         return new ResponseEntity<>(flightService.listFlights(), HttpStatus.OK);
     }
 
