@@ -2,6 +2,7 @@ package com.example.DesafioSprint1.config;
 
 import com.example.DesafioSprint1.dto.ErrorDTO;
 import com.example.DesafioSprint1.exceptions.BookingRegistrationException;
+import com.example.DesafioSprint1.exceptions.EmptyFlightReservationException;
 import com.example.DesafioSprint1.exceptions.ReservationInexistentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,9 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-
+    @ExceptionHandler(EmptyFlightReservationException.class)
+    public ResponseEntity<?> emptyFlightReservationException(Exception e){
+        ErrorDTO error = new ErrorDTO("Los datos de reserva no pueden estar vacios", 400);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 }

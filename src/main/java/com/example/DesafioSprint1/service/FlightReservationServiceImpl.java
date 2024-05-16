@@ -5,6 +5,7 @@ import com.example.DesafioSprint1.dto.Request.FlightReservationRequestDTO;
 import com.example.DesafioSprint1.dto.Response.FlightReservationResponseDTO;
 import com.example.DesafioSprint1.dto.Response.StatusDTO;
 import com.example.DesafioSprint1.exceptions.BookingRegistrationException;
+import com.example.DesafioSprint1.exceptions.EmptyFlightReservationException;
 import com.example.DesafioSprint1.model.Flight;
 import com.example.DesafioSprint1.repository.IFlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
 
     @Override
     public FlightReservationResponseDTO reserveFlight(FlightReservationRequestDTO request) {
+        if (request.getUserName() == null) {
+            throw new EmptyFlightReservationException();
+        }
         // obtener informacion del vuelo desde el servicio
         Flight flight = flightRepository.findAll().stream()
                 .filter(f -> f.getFlightNumber().equals(request.getFlightReservation().getFlightNumber()))
@@ -28,6 +32,7 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
                 .filter(f -> f.getSeatType().equals(request.getFlightReservation().getSeatType()))
                 .findFirst()
                 .orElse(null);
+
         if (flight == null) {
             throw new BookingRegistrationException();
         }

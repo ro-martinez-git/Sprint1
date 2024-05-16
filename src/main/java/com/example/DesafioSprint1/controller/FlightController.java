@@ -33,16 +33,13 @@ public class FlightController {
             @RequestParam("origin") String origin,
             @RequestParam("destination") String destination) {
 
-        if (dateFrom == null && dateTo == null && origin == null && destination == null) {
-            return ResponseEntity.badRequest().build();
-        }
 
         List<FlightDTO> flightDtoList = flightService.findFlightsByDateAndRoute(dateFrom, dateTo, origin, destination);
         return new ResponseEntity<>(flightDtoList, HttpStatus.OK);
     }
     @PostMapping("/flight-reservation")
     public ResponseEntity<?> reserveFlight(@RequestBody FlightReservationRequestDTO request) {
-        FlightReservationResponseDTO response = flightReservationService.reserveFlight(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        //FlightReservationResponseDTO response = flightReservationService.reserveFlight(request);
+        return new ResponseEntity<>(flightReservationService.reserveFlight(request), HttpStatus.CREATED);
     }
 }
