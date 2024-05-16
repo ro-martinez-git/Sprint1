@@ -1,16 +1,14 @@
 package com.example.DesafioSprint1.controller;
 
 import com.example.DesafioSprint1.dto.FlightDTO;
-import com.example.DesafioSprint1.dto.HotelDTO;
+import com.example.DesafioSprint1.dto.Request.FlightReservationRequestDTO;
+import com.example.DesafioSprint1.dto.Response.FlightReservationResponseDTO;
+import com.example.DesafioSprint1.service.IFlightReservationService;
 import com.example.DesafioSprint1.service.IFlightService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,9 +19,11 @@ import java.util.List;
 public class FlightController {
 
     private final IFlightService flightService;
+    private final IFlightReservationService flightReservationService;
 
-    public FlightController(IFlightService flightService) {
+    public FlightController(IFlightService flightService, IFlightReservationService flightReservationService) {
         this.flightService = flightService;
+        this.flightReservationService = flightReservationService;
     }
 
     @GetMapping("/flights")
@@ -40,5 +40,9 @@ public class FlightController {
         List<FlightDTO> flightDtoList = flightService.findFlightsByDateAndRoute(dateFrom, dateTo, origin, destination);
         return new ResponseEntity<>(flightDtoList, HttpStatus.OK);
     }
-
+    @PostMapping("/flight-reservation")
+    public ResponseEntity<?> reserveFlight(@RequestBody FlightReservationRequestDTO request) {
+        FlightReservationResponseDTO response = flightReservationService.reserveFlight(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 }

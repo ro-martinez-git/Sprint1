@@ -19,8 +19,8 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(BookingRegistrationException.class)
     public ResponseEntity<?> bookingRegistrationException(Exception e){
-        ErrorDTO error = new ErrorDTO("No fue posible realizar la reserva", 500);
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        ErrorDTO error = new ErrorDTO("Los datos de la reserva no coinciden", 404);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
 

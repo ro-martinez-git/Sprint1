@@ -26,6 +26,4 @@ public class FlightDTO {
         @JsonProperty("date_to")
         @JsonFormat(pattern = "dd-MM-yyyy")
         private LocalDate dateTo;
-
-
 }

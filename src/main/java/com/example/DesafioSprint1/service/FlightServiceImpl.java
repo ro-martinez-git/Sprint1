@@ -58,10 +58,6 @@ public class FlightServiceImpl implements IFlightService {
                     flight.getDateTo()
             ));
         }
-
         return flightDTOList;
-
-
-
     }
 }

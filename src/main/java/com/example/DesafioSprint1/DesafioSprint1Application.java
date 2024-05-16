@@ -13,10 +13,6 @@ public class DesafioSprint1Application {
 
 		SpringApplication.run(DesafioSprint1Application.class, args);
 
-//		FlightRepository h = new FlightRepository();
-//		System.out.println(h);
-
-
 	}
 
 }
