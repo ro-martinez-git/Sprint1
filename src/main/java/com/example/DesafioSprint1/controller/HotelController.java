@@ -37,7 +37,7 @@ public class HotelController {
     }
 
     @PostMapping("/booking")
-    public ResponseEntity<?> agregarAlumno(@RequestBody BookingRequestDTO bookingRequestDTO){
+    public ResponseEntity<?> makeBooking(@RequestBody BookingRequestDTO bookingRequestDTO){
         return new ResponseEntity<>(bookingService.makeBooking(bookingRequestDTO), HttpStatus.CREATED);
     }
 
