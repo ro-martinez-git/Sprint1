@@ -1,6 +1,6 @@
 package com.example.DesafioSprint1.service;
 
-import com.example.DesafioSprint1.dto.ErrorDTO;
+
 import com.example.DesafioSprint1.dto.HotelDTO;
 import com.example.DesafioSprint1.exceptions.ReservationInexistentException;
 import com.example.DesafioSprint1.model.Hotel;
@@ -8,13 +8,9 @@ import com.example.DesafioSprint1.repository.IHotelRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
 
 @Service
 public class HotelServiceImpl implements IHotelService{
