@@ -27,6 +27,40 @@ public class HotelRepository implements IHotelRepository{
         return hotelList;
     }
 
+
+    @Override
+    public Hotel findByHotelCode(String hotelCode) {
+        Hotel hotel = hotelList.stream()
+                .filter(h-> h.getHotelCode().equals(hotelCode))
+                .findFirst()
+                .orElse(null);
+        return hotel;
+    }
+
+    @Override
+    public Hotel save(Hotel hotel) {
+        hotelList.add(hotel);
+        return hotel;
+    }
+
+    @Override
+    public Boolean delete(String hotelCode) {
+        Hotel hotelsearch = findByHotelCode(hotelCode);
+        hotelList.remove(hotelsearch);
+        return true;
+    }
+
+    @Override
+    public Hotel update(Hotel hotel) {
+        Hotel hotelsearch = findByHotelCode(hotel.getHotelCode());
+        hotel.setHotelCode(hotelsearch.getHotelCode()); // recuperamos el id
+
+        hotelList.remove(hotelsearch);
+        hotelList.add(hotel);
+
+        return hotel;
+    }
+
     private List<Hotel> loadData() {
         List<Hotel> loadedData = null;
         File file;
