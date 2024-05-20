@@ -1,6 +1,7 @@
 package com.example.DesafioSprint1.service;
 
 import com.example.DesafioSprint1.dto.FlightDTO;
+import com.example.DesafioSprint1.exceptions.FlightNotFoundException;
 import com.example.DesafioSprint1.model.Flight;
 import com.example.DesafioSprint1.repository.IFlightRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -31,7 +32,9 @@ public class FlightServiceImpl implements IFlightService {
 
     @Override
     public List<FlightDTO> findFlightsByDateAndRoute(LocalDate dateFrom, LocalDate dateTo, String origin, String destination) {
-
+        if(dateFrom== null || dateTo == null || origin == null || destination == null){
+            throw new FlightNotFoundException();
+        }
         List<Flight> flightList = flightRepository.findAll();
 
         // filtro por origen y destino
@@ -45,6 +48,9 @@ public class FlightServiceImpl implements IFlightService {
         List <Flight> flightsFecha = flightsRuta.stream()
                 .filter(flight -> flight.getDateFrom().equals(dateFrom) && flight.getDateTo().equals(dateTo))
                 .toList();
+        if(flightsFecha.isEmpty()){
+            throw new FlightNotFoundException();
+        }
 
         List<FlightDTO> flightDTOList = new ArrayList<>();
         for (Flight flight : flightsFecha) {
