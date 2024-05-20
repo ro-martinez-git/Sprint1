@@ -46,14 +46,10 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<?> NullPointerExceptionHotel(Exception e){
-        ErrorDTO error = new ErrorDTO("No se recibieron datos para el Hotel", 500);
+    public ResponseEntity<?> NullPointerException(Exception e){
+        ErrorDTO error = new ErrorDTO("No se recibieron datos", 500);
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
    }
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<?> NullPointerExceptionFlight(Exception e){
-       ErrorDTO error = new ErrorDTO("No se recibieron datos para el Vuelo", 500);
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+
 
 }
