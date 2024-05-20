@@ -20,6 +20,7 @@ public class FlightRepository implements IFlightRepository {
     private List<Flight> flightList;
 
     public FlightRepository(){
+
         this.flightList= loadData();
     }
 
