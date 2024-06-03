@@ -3,6 +3,7 @@ package com.example.DesafioSprint1.controller;
 import com.example.DesafioSprint1.dto.FlightDTO;
 import com.example.DesafioSprint1.dto.Request.FlightReservationRequestDTO;
 import com.example.DesafioSprint1.dto.Response.FlightReservationResponseDTO;
+import com.example.DesafioSprint1.exceptions.HotelFlightBadRequestException;
 import com.example.DesafioSprint1.service.IFlightReservationService;
 import com.example.DesafioSprint1.service.IFlightService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,20 +27,7 @@ public class FlightController {
         this.flightReservationService = flightReservationService;
     }
 
-    /*
-    @GetMapping("/flights")
 
-    public ResponseEntity<List<FlightDTO>> listFlights(
-            @DateTimeFormat(pattern = "dd-MM-yyyy") @RequestParam("date_from") LocalDate dateFrom,
-            @DateTimeFormat(pattern = "dd-MM-yyyy") @RequestParam("date_to") LocalDate dateTo,
-            @RequestParam("origin") String origin,
-            @RequestParam("destination") String destination) {
-
-
-        List<FlightDTO> flightDtoList = flightService.findFlightsByDateAndRoute(dateFrom, dateTo, origin, destination);
-        return new ResponseEntity<>(flightDtoList, HttpStatus.OK);
-    }
-    */
     @GetMapping("/flights")
 
     public ResponseEntity<?> listFlights(
@@ -48,15 +36,22 @@ public class FlightController {
             @RequestParam(value = "origin", required = false) String origin,
             @RequestParam(value = "destination", required = false) String destination) {
 
-        if (origin==null || destination == null || dateFrom == null || dateTo == null )
+        if (origin==null && destination == null && dateFrom == null && dateTo == null )
         {
             return new ResponseEntity<>(flightService.listFlights(), HttpStatus.OK);
 
         }
+        if(origin == null || destination == null || dateFrom == null || dateTo == null)
+        {
+            // la excepcion que hay que hacer por badreques
+            throw new HotelFlightBadRequestException();
+        }
+
         else {
             List<FlightDTO> flightDtoList = flightService.findFlightsByDateAndRoute(dateFrom, dateTo, origin, destination);
             return new ResponseEntity<>(flightDtoList, HttpStatus.OK);
         }
+
 
     }
 

@@ -52,18 +52,11 @@ public class FlightServiceImpl implements IFlightService {
             throw new FlightNotFoundException();
         }
 
-        List<FlightDTO> flightDTOList = new ArrayList<>();
-        for (Flight flight : flightsFecha) {
-            flightDTOList.add(new FlightDTO(
-                    flight.getFlightNumber(),
-                    flight.getOrigin(),
-                    flight.getDestination(),
-                    flight.getSeatType(),
-                    flight.getAmount(),
-                    flight.getDateFrom(),
-                    flight.getDateTo()
-            ));
-        }
-        return flightDTOList;
+        return flightsFecha.stream()
+                .map(flight -> modelMapper
+                        .map(flight, FlightDTO.class))
+                .toList();
+
+
     }
 }

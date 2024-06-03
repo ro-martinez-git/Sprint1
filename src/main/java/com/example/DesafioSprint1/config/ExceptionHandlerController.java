@@ -1,12 +1,8 @@
 package com.example.DesafioSprint1.config;
 
 import com.example.DesafioSprint1.dto.ErrorDTO;
-import com.example.DesafioSprint1.exceptions.BookingRegistrationException;
-import com.example.DesafioSprint1.exceptions.EmptyFlightReservationException;
-import com.example.DesafioSprint1.exceptions.FlightNotFoundException;
+import com.example.DesafioSprint1.exceptions.*;
 
-import com.example.DesafioSprint1.exceptions.HotelNotFoundException;
-import com.example.DesafioSprint1.exceptions.ReservationInexistentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -51,5 +47,11 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
    }
 
+
+    @ExceptionHandler(HotelFlightBadRequestException.class)
+    public ResponseEntity<?> HotelFlightBadRequest(Exception e){
+        ErrorDTO error = new ErrorDTO("Se requieren todos los datos para filtrar", 400);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 
 }

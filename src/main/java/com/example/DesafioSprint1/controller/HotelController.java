@@ -5,6 +5,7 @@ import com.example.DesafioSprint1.dto.HotelDTO;
 import com.example.DesafioSprint1.dto.BookingDTO;
 import com.example.DesafioSprint1.dto.Request.BookingRequestDTO;
 import com.example.DesafioSprint1.dto.Request.HotelRequestDTO;
+import com.example.DesafioSprint1.exceptions.HotelFlightBadRequestException;
 import com.example.DesafioSprint1.service.IBookingService;
 import com.example.DesafioSprint1.service.IHotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,20 +31,25 @@ public class HotelController {
     public ResponseEntity<?> availableHotels(
     @RequestParam (value="date_from", required = false)  @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate dateFrom,
     @RequestParam (value="date_to", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy")    LocalDate dateTo,
-    @RequestParam (value="destination", required = false) String destination)
-    {
+    @RequestParam (value="destination", required = false) String destination) {
+
+        if (dateFrom == null && dateTo == null && destination == null)
+        {
+            return new ResponseEntity<>(hotelService.listHotels(), HttpStatus.OK);
+        }
         if (dateFrom == null || dateTo == null || destination == null)
-        {return new ResponseEntity<>(hotelService.listHotels(), HttpStatus.OK);}
-        else {
+        {
+            throw new HotelFlightBadRequestException();
+        }
+        else
+        {
             return new ResponseEntity<>(hotelService.availableHotels(dateFrom, dateTo, destination), HttpStatus.OK);
         }
-    }
 
+    }
         @PostMapping("/booking")
     public ResponseEntity<?> makeBooking(@RequestBody BookingRequestDTO bookingRequestDTO){
-//        if (bookingRequestDTO == null) {
-//            throw new HttpMessageNotReadableException("No hay datos para reservar el Hotel");
-//        }
+
         return new ResponseEntity<>(bookingService.makeBooking(bookingRequestDTO), HttpStatus.CREATED);
     }
 
