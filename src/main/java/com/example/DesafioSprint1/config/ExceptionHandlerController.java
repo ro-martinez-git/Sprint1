@@ -66,6 +66,12 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(flightRangeException.class)
+    public ResponseEntity<?> flightRange(Exception e){
+        ErrorDTO error = new ErrorDTO("La fecha del vuelo debe ser posterior a la fecha actual", 400);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
 
     ////// VALIDACIONES //////
 
