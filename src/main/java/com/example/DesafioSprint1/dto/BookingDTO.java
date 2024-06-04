@@ -4,8 +4,11 @@ import com.example.DesafioSprint1.dto.PeopleDTO;
 import com.example.DesafioSprint1.dto.Request.PaymentMethodDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +19,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Valid
 public class BookingDTO {
 
+        @NotEmpty(message = "El destino elegido no existe")
         private String destination;
         @JsonProperty("date_from")
         @JsonFormat(pattern = "dd-MM-yyyy")
@@ -27,13 +32,14 @@ public class BookingDTO {
         private LocalDate dateTo;
         @JsonProperty("hotel_code")
         private String hotelCode;
+        @Positive(message = "La cantidad de personas debe ser un valor numérico")
         private Integer people_amount;
         @JsonProperty("room_type")
         private String roomType;
         @JsonProperty("people")
-        private List<PeopleDTO> peopleList;
+        private @Valid List<PeopleDTO> peopleList;
         @JsonProperty("payment_method")
-        private PaymentMethodDTO paymentMethodDTO;
+        private @Valid PaymentMethodDTO paymentMethodDTO;
 
 
 }

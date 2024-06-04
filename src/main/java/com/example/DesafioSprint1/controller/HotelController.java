@@ -8,6 +8,7 @@ import com.example.DesafioSprint1.dto.Request.HotelRequestDTO;
 import com.example.DesafioSprint1.exceptions.HotelFlightBadRequestException;
 import com.example.DesafioSprint1.service.IBookingService;
 import com.example.DesafioSprint1.service.IHotelService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -53,7 +54,7 @@ public class HotelController {
 
     }
         @PostMapping("/booking")
-    public ResponseEntity<?> makeBooking(@RequestBody BookingRequestDTO bookingRequestDTO){
+    public ResponseEntity<?> makeBooking(@RequestBody @Valid BookingRequestDTO bookingRequestDTO){
 
         return new ResponseEntity<>(bookingService.makeBooking(bookingRequestDTO), HttpStatus.CREATED);
     }
