@@ -3,6 +3,7 @@ package com.example.DesafioSprint1.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class PeopleDTO {
         @JsonFormat(pattern = "dd-MM-yyyy")
         private LocalDate birthDate;
         @Email(message = "Por favor ingrese un e-mail válido")
+        @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", message = "El correo no es válido")
         private String email;
 
 

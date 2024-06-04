@@ -32,11 +32,6 @@ public class BookingServiceImpl implements IBookingService{
         {
             throw new InvalidDateFromException();
         }
-        if(bookingRequestDTO.getBookingDTO().getDateTo().isBefore(bookingRequestDTO.getBookingDTO().getDateFrom())
-                || bookingRequestDTO.getBookingDTO().getDateTo().isEqual(bookingRequestDTO.getBookingDTO().getDateFrom()))
-        {
-            throw new InvalidDateToException();
-        }
 
         if ( ! ValidateRoomType(bookingRequestDTO) )
         {   throw new InvalidRoomTypeException(); }
@@ -100,7 +95,7 @@ public class BookingServiceImpl implements IBookingService{
 
         if (paymentMethodDTO.getType().toUpperCase().equals("DEBIT"))
         {               return 0.0;     }
-        else if (paymentMethodDTO.getType().toUpperCase().equals("DEBIT"))
+        else if (paymentMethodDTO.getType().toUpperCase().equals("CREDIT"))
         {
             if (paymentMethodDTO.getDues() > 1 && paymentMethodDTO.getDues() <= 3 )
             {return 5.0;}

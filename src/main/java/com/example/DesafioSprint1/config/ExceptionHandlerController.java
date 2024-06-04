@@ -9,6 +9,7 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -73,6 +74,30 @@ public class ExceptionHandlerController {
     }
 
 
+    @ExceptionHandler(InvalidDateFromException.class)
+    public ResponseEntity<?> InvalidDateFromException(Exception e){
+        ErrorDTO error = new ErrorDTO("La fecha de entrada debe ser menor a la de salida", 400);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidRoomTypeException.class)
+    public ResponseEntity<?> InvalidRoomTypeException(Exception e){
+        ErrorDTO error = new ErrorDTO("El tipo de habitación seleccionada no coincide con la cantidad de personas que se alojarán en ella.", 400);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidPaymentDebitDues.class)
+    public ResponseEntity<?> InvalidPaymentDebitDues(Exception e){
+        ErrorDTO error = new ErrorDTO("Tarjeta de débito: Se ha ingresado una cantidad de cuotas diferente a 1", 400);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<?> HttpMessageNotReadableException(Exception e){
+        ErrorDTO error = new ErrorDTO("La cantidad de personas debe ser un valor numérico", 400);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
     ////// VALIDACIONES //////
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -97,28 +122,5 @@ public class ExceptionHandlerController {
         );
     }
 
-    @ExceptionHandler(InvalidDateFromException.class)
-    public ResponseEntity<?> InvalidDateFromException(Exception e){
-        ErrorDTO error = new ErrorDTO("La fecha de entrada debe ser menor a la de salida", 400);
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidDateToException.class)
-    public ResponseEntity<?> InvalidDateToException(Exception e){
-        ErrorDTO error = new ErrorDTO("La fecha de salida debe ser mayor a la de entrada", 400);
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidRoomTypeException.class)
-    public ResponseEntity<?> InvalidRoomTypeException(Exception e){
-        ErrorDTO error = new ErrorDTO("El tipo de habitación seleccionada no coincide con la cantidad de personas que se alojarán en ella.", 400);
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidPaymentDebitDues.class)
-    public ResponseEntity<?> InvalidPaymentDebitDues(Exception e){
-        ErrorDTO error = new ErrorDTO("Tarjeta de débito: Se ha ingresado una cantidad de cuotas diferente a 1", 400);
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
 
 }
