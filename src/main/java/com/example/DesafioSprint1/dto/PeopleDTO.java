@@ -23,8 +23,7 @@ public class PeopleDTO {
         @JsonProperty("birth_date")
         @JsonFormat(pattern = "dd-MM-yyyy")
         private LocalDate birthDate;
-        @Email(message = "Por favor ingrese un e-mail válido")
-        @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", message = "El correo no es válido")
+        @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$",message = "Por favor ingrese un e-mail válido")
         private String email;
 
 

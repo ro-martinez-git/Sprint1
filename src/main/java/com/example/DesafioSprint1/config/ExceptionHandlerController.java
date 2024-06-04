@@ -94,7 +94,7 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> HttpMessageNotReadableException(Exception e){
-        ErrorDTO error = new ErrorDTO("La cantidad de personas debe ser un valor numérico", 400);
+        ErrorDTO error = new ErrorDTO("Solo se aceptan valores numéricos", 400);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 

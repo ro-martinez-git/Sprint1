@@ -6,6 +6,7 @@ import com.example.DesafioSprint1.dto.Response.FlightReservationResponseDTO;
 import com.example.DesafioSprint1.exceptions.HotelFlightBadRequestException;
 import com.example.DesafioSprint1.service.IFlightReservationService;
 import com.example.DesafioSprint1.service.IFlightService;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +59,7 @@ public class FlightController {
     }
 
     @PostMapping("/flight-reservation")
-    public ResponseEntity<?> reserveFlight(@RequestBody FlightReservationRequestDTO request) {
+    public ResponseEntity<?> reserveFlight(@RequestBody @Valid FlightReservationRequestDTO request) {
         //FlightReservationResponseDTO response = flightReservationService.reserveFlight(request);
         return new ResponseEntity<>(flightReservationService.reserveFlight(request), HttpStatus.CREATED);
     }
