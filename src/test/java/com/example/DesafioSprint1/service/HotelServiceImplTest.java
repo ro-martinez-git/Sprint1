@@ -67,6 +67,11 @@ class HotelServiceImplTest {
         Assertions.assertEquals(listaHotelEsperada, listaHotelObtenida);
 
     }
+    @DisplayName("Test availableHotels Fail")
+    void availableHotelsFail() {
+
+
+    }
 
 
     @Test
