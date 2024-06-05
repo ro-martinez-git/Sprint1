@@ -24,9 +24,9 @@ class HotelServiceImplTest {
     @InjectMocks
     private HotelServiceImpl hotelService;
 
-    private static final HotelDTO HotelDTO1 = new HotelDTO("CH-0002", "Puerto Iguazú", "Doble", LocalDate.of(2025, 02, 10), LocalDate.of(2025, 03, 20), "NO");
-    private static final HotelDTO HotelDTO2 = new HotelDTO("CH-0003", "Puerto Iguazú", "Triple", LocalDate.of(2025, 02, 10), LocalDate.of(2025, 03, 23), "NO");
-
+    private static final HotelDTO HotelDTO1 = new HotelDTO("Cataratas Hotel","Puerto Iguazú", "Doble", LocalDate.of(2025, 02, 10), LocalDate.of(2025, 03, 20), "NO");
+    private static final HotelDTO HotelDTO2 = new HotelDTO("Cataratas Hotel 2", "Puerto Iguazú", "Triple", LocalDate.of(2025, 02, 10), LocalDate.of(2025, 03, 23), "NO");
+    private static final Hotel Hotel1 = new Hotel ("CH-0002", "Cataratas Hotel", "Puerto Iguazú", "Doble", 6300.0, LocalDate.of(2025, 02, 10),LocalDate.of(2025, 03, 20), "NO");
 
     @Test
     @DisplayName("Test FindAll OK")
@@ -35,20 +35,39 @@ class HotelServiceImplTest {
     void listHotels() {
 
         //ARRANGE
-        List<HotelDTO> listaHotelEsperada = List.of(HotelDTO1, HotelDTO2);
+        List<Hotel>listaHotel = List.of(Hotel1);
+        List<HotelDTO> listaHotelEsperada = List.of(HotelDTO1);
 
         //ACT
-        Mockito.when(hotelService.listHotels()).thenReturn(listaHotelEsperada);
-        List<Hotel> listaHotelObtenida = hotelRepository.findAll();
+        Mockito.when(hotelRepository.findAll()).thenReturn(listaHotel);
+        List<HotelDTO> listaHotelObtenida = hotelService.listHotels();
 
         //ASSERT
         Assertions.assertEquals(listaHotelEsperada, listaHotelObtenida);
 
     }
 
+    // List<HotelDTO> availableHotels(LocalDate dateFrom, LocalDate dateTo, String destination)
     @Test
+    @DisplayName("Test availableHotels OK")
     void availableHotels() {
+        //ARRANGE
+        List<HotelDTO> listaHotelEsperada = List.of(HotelDTO1);
+        List<Hotel>listaHotel = List.of(Hotel1);
+
+        LocalDate dateFromEntrada = LocalDate.of(2025, 02, 10);
+        LocalDate dateToEntrada= LocalDate.of(2025, 03, 20);
+        String destinationEntrada= "Puerto Iguazú";
+
+        //ACT
+        Mockito.when(hotelRepository.findAll()).thenReturn(listaHotel);
+        List<HotelDTO> listaHotelObtenida = hotelService.availableHotels(LocalDate.of(2025, 02, 10), LocalDate.of(2025, 03, 20), "Puerto Iguazú");
+
+        //ASSERT
+        Assertions.assertEquals(listaHotelEsperada, listaHotelObtenida);
+
     }
+
 
     @Test
     void findByHotelCode() {
