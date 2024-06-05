@@ -4,7 +4,6 @@ package com.example.DesafioSprint1.service;
 import com.example.DesafioSprint1.dto.HotelDTO;
 import com.example.DesafioSprint1.dto.Request.HotelRequestDTO;
 import com.example.DesafioSprint1.dto.RespuestaDTO;
-import com.example.DesafioSprint1.exceptions.DateRangeFrom;
 import com.example.DesafioSprint1.exceptions.HotelNotFoundException;
 import com.example.DesafioSprint1.exceptions.ReservationInexistentException;
 import com.example.DesafioSprint1.model.Hotel;
@@ -35,11 +34,6 @@ ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public List<HotelDTO> availableHotels(LocalDate dateFrom, LocalDate dateTo, String destination) {
-
-        if (dateFrom.isAfter(dateTo)) {
-            throw new DateRangeFrom();
-        }
-
        List<HotelDTO> availableHotels = listHotels();
        availableHotels= availableHotels.stream()
                .filter(hotelDTO -> hotelDTO.getDestination().equals(destination))

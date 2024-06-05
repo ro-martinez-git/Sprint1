@@ -1,7 +1,6 @@
 package com.example.DesafioSprint1.service;
 
 import com.example.DesafioSprint1.dto.FlightDTO;
-import com.example.DesafioSprint1.exceptions.DateRangeFrom;
 import com.example.DesafioSprint1.exceptions.FlightNotFoundException;
 import com.example.DesafioSprint1.model.Flight;
 import com.example.DesafioSprint1.repository.IFlightRepository;
@@ -33,9 +32,6 @@ public class FlightServiceImpl implements IFlightService {
 
     @Override
     public List<FlightDTO> findFlightsByDateAndRoute(LocalDate dateFrom, LocalDate dateTo, String origin, String destination) {
-        if (dateFrom.isAfter(dateTo)) {
-            throw new DateRangeFrom();
-        }
         if(dateFrom== null || dateTo == null || origin == null || destination == null){
             throw new FlightNotFoundException();
         }
@@ -56,11 +52,18 @@ public class FlightServiceImpl implements IFlightService {
             throw new FlightNotFoundException();
         }
 
-        return flightsFecha.stream()
-                .map(flight -> modelMapper
-                        .map(flight, FlightDTO.class))
-                .toList();
-
-
+        List<FlightDTO> flightDTOList = new ArrayList<>();
+        for (Flight flight : flightsFecha) {
+            flightDTOList.add(new FlightDTO(
+                    flight.getFlightNumber(),
+                    flight.getOrigin(),
+                    flight.getDestination(),
+                    flight.getSeatType(),
+                    flight.getAmount(),
+                    flight.getDateFrom(),
+                    flight.getDateTo()
+            ));
+        }
+        return flightDTOList;
     }
 }
