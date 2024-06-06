@@ -192,39 +192,3 @@ class FlightReservationServiceImplTest {
     }
 }
 
-//    @Test
-//    @DisplayName("Obtener todos los vuelos")
-//    void getAllFlightsTestOK() {
-//        Mockito.when(flightRepository.findAll()).thenReturn(Arrays.asList(flight1));
-//        List<FlightDTO> flights = flightReservationService.getAllFlights();
-//        Assertions.assertFalse(flights.isEmpty());
-//        Assertions.assertEquals(1, flights.size());
-//        Assertions.assertEquals(flight1.getFlightNumber(), flights.get(0).getFlightNumber());
-//    }
-//
-//    @Test
-//    @DisplayName("Obtener todos los vuelos - No hay vuelos disponibles")
-//    void getAllFlightsTestNoFlights() {
-//        Mockito.when(flightRepository.findAll()).thenReturn(Arrays.asList());
-//        List<FlightDTO> flights = flightReservationService.getAllFlights();
-//        Assertions.assertTrue(flights.isEmpty());
-//    }
-//
-//    @Test
-//    @DisplayName("Encontrar vuelos por destino")
-//    void findFlightByDestinationTestOK() {
-//        Mockito.when(flightRepository.findAll()).thenReturn(Arrays.asList(flight1));
-//        List<FlightDTO> flights = flightReservationService.reserveFlight.findFlightByDestination("Buenos Aires", "Puerto Iguazú");
-//        Assertions.assertFalse(flights.isEmpty());
-//        Assertions.assertEquals(1, flights.size());
-//        Assertions.assertEquals(flight1.getFlightNumber(), flights.get(0).getFlightNumber());
-//    }
-//
-//    @Test
-//    @DisplayName("Encontrar vuelos por destino - No hay vuelos disponibles")
-//    void findFlightByDestinationTestNoFlights() {
-//        Mockito.when(flightRepository.findAll()).thenReturn(Arrays.asList());
-//        List<FlightDTO> flights = flightReservationService.findFlightByDestination("Buenos Aires", "Puerto Iguazú");
-//        Assertions.assertTrue(flights.isEmpty());
-//    }
-//}
