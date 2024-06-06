@@ -1,6 +1,8 @@
 package com.example.DesafioSprint1.service;
 
 import com.example.DesafioSprint1.dto.HotelDTO;
+import com.example.DesafioSprint1.exceptions.DateRangeFrom;
+import com.example.DesafioSprint1.exceptions.ReservationInexistentException;
 import com.example.DesafioSprint1.model.Hotel;
 import com.example.DesafioSprint1.repository.HotelRepository;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
@@ -61,32 +64,40 @@ class HotelServiceImplTest {
 
         //ACT
         Mockito.when(hotelRepository.findAll()).thenReturn(listaHotel);
-        List<HotelDTO> listaHotelObtenida = hotelService.availableHotels(LocalDate.of(2025, 02, 10), LocalDate.of(2025, 03, 20), "Puerto Iguazú");
+        List<HotelDTO> listaHotelObtenida = hotelService.availableHotels(dateFromEntrada, dateToEntrada, destinationEntrada);
 
         //ASSERT
         Assertions.assertEquals(listaHotelEsperada, listaHotelObtenida);
 
     }
-    @DisplayName("Test availableHotels Fail")
-    void availableHotelsFail() {
-
-
-    }
-
-
     @Test
-    void findByHotelCode() {
+    @DisplayName("Test availableHotels Fail 1")
+    void availableHotelsFail1() {
+        //ARR
+        List<Hotel> listaVacia = new ArrayList<>();
+        LocalDate dateFromEntrada = LocalDate.of(2025, 02, 10);
+        LocalDate dateToEntrada= LocalDate.of(2025, 03, 20);
+        String destinationEntrada= "Puerto Iguazú";
+        //ACT
+        Mockito.when(hotelRepository.findAll()).thenReturn(listaVacia);
+
+        //ASSERT
+        Assertions.assertThrows(ReservationInexistentException.class,
+                () -> hotelService.availableHotels(dateFromEntrada, dateToEntrada, destinationEntrada));
+
+    }
+    @Test
+    @DisplayName("Test availableHotels Fail 2")
+    void availableHotelsFail2() {
+
+        LocalDate dateFromEntrada = LocalDate.of(2026, 02, 10);
+        LocalDate dateToEntrada= LocalDate.of(2025, 03, 20);
+        String destinationEntrada= "Puerto Iguazú";
+
+        //ASSERT
+        Assertions.assertThrows(DateRangeFrom.class,
+                () -> hotelService.availableHotels(dateFromEntrada, dateToEntrada, destinationEntrada));
+
     }
 
-    @Test
-    void save() {
-    }
-
-    @Test
-    void delete() {
-    }
-
-    @Test
-    void actualizarHotel() {
-    }
 }
