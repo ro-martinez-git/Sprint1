@@ -1,7 +1,10 @@
 package com.example.DesafioSprint1.service;
 
 import com.example.DesafioSprint1.dto.HotelDTO;
+import com.example.DesafioSprint1.dto.Request.HotelRequestDTO;
+import com.example.DesafioSprint1.dto.RespuestaDTO;
 import com.example.DesafioSprint1.exceptions.DateRangeFrom;
+import com.example.DesafioSprint1.exceptions.HotelNotFoundException;
 import com.example.DesafioSprint1.exceptions.ReservationInexistentException;
 import com.example.DesafioSprint1.model.Hotel;
 import com.example.DesafioSprint1.repository.HotelRepository;
@@ -31,6 +34,8 @@ class HotelServiceImplTest {
     private static final HotelDTO HotelDTO2 = new HotelDTO("Cataratas Hotel 2", "Puerto Iguazú", "Triple", LocalDate.of(2025, 02, 10), LocalDate.of(2025, 03, 23), "NO");
     private static final Hotel Hotel1 = new Hotel ("CH-0002", "Cataratas Hotel", "Puerto Iguazú", "Doble", 6300.0, LocalDate.of(2025, 02, 10),LocalDate.of(2025, 03, 20), "NO");
     private static final Hotel Hotel2 = new Hotel ("CH-0002", "Cataratas Hotel 2", "Puerto Iguazú", "Triple", 6300.0, LocalDate.of(2025, 02, 10),LocalDate.of(2025, 03, 23), "NO");
+
+    private static final HotelRequestDTO hotelRequestDTO = new HotelRequestDTO ("CH-0002", "Cataratas Hotel", "Puerto Iguazú", "Doble", 6300.0,LocalDate.of(2025, 02,10), LocalDate.of(2025, 03, 20), "NO");
 
     @Test
     @DisplayName("Test FindAll OK")
@@ -119,6 +124,86 @@ class HotelServiceImplTest {
         //ASSERT
         Assertions.assertThrows(DateRangeFrom.class,
                 () -> hotelService.availableHotels(dateFromEntrada, dateToEntrada, destinationEntrada));
+
+    }
+
+    @Test
+    @DisplayName("Test findByHotelCode OK")
+    //public HotelDTO findByHotelCode(String hotelCode)
+    public void findByHotelCode() {
+
+        HotelDTO HotelDTOEsperada = HotelDTO1;
+        Hotel HotelObtenido = Hotel1;
+
+        Mockito.when(hotelRepository.findByHotelCode("CH-0002")).thenReturn(HotelObtenido);
+        HotelDTO HotelDTOObtenido = hotelService.findByHotelCode("CH-0002");
+
+        Assertions.assertEquals(HotelDTOEsperada, HotelDTOObtenido);
+
+    }
+
+    @Test
+    @DisplayName("Test findByHotelCode NOK")
+    // public HotelDTO findByHotelCode(String hotelCode)
+    public void findByHotelCodeNOK() {
+
+        Mockito.when(hotelRepository.findByHotelCode("CH-0007")).thenReturn(null);
+
+        Assertions.assertThrows(HotelNotFoundException.class, () -> hotelService.findByHotelCode("CH-0007"));
+
+    }
+
+    @Test
+    @DisplayName("Test Save OK")
+    // public RespuestaDTO save(HotelRequestDTO requestDTO )
+    public void saveOK() {
+
+        RespuestaDTO respuestaDTOEsperada = new RespuestaDTO("Hotel creado con éxito");
+        Hotel HotelObtenido = Hotel1;
+
+        Mockito.when(hotelRepository.save(HotelObtenido)).thenReturn(HotelObtenido);
+        RespuestaDTO respuestaDTOObtenido = hotelService.save(hotelRequestDTO);
+
+        Assertions.assertEquals(respuestaDTOEsperada, respuestaDTOObtenido);
+    }
+
+    @Test
+    @DisplayName("Test Delete OK")
+    // public RespuestaDTO delete(String hotelCode)
+    public void deleteOK() {
+//
+        RespuestaDTO respuestaDTOEsperada = new RespuestaDTO("Hotel eliminado con éxito");
+
+        Mockito.when(hotelRepository.delete("CH-0002")).thenReturn(true);
+        RespuestaDTO respuestaDTOObtenido = hotelService.delete("CH-0002");
+
+        Assertions.assertEquals(respuestaDTOEsperada, respuestaDTOObtenido);
+
+    }
+
+    @Test
+    @DisplayName("Test Delete NOK")
+    // public RespuestaDTO delete(String hotelCode)
+    public void deleteNOK() {
+        RespuestaDTO respuestaDTOEsperada = new RespuestaDTO("No se pudo eliminar el hotel");
+
+        Mockito.when(hotelRepository.delete("CH-0007")).thenReturn(false);
+        RespuestaDTO respuestaDTOObtenido = hotelService.delete("CH-0007");
+
+        Assertions.assertEquals(respuestaDTOEsperada, respuestaDTOObtenido);
+    }
+
+    @Test
+    @DisplayName("Test Update OK")
+    //public HotelRequestDTO actualizarHotel(HotelRequestDTO hotelRequestDTO)
+    public void updateOK() {
+
+        HotelRequestDTO hotelRequestDTOEsperado = hotelRequestDTO;
+
+        //Mockito.when(hotelRepository.update(Hotel1)).thenReturn(Hotel1);
+        HotelRequestDTO hotelRequestDTOObtenido = hotelService.actualizarHotel(hotelRequestDTO);
+
+        Assertions.assertEquals(hotelRequestDTOEsperado, hotelRequestDTOObtenido);
 
     }
 
