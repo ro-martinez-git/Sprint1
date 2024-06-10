@@ -1,0 +1,23 @@
+[
+   {
+      "hotel_code":"CH-0002",
+      "hotel_name":"Cataratas Hotel",
+      "destination":"Puerto Iguazú",
+      "room_type":"Doble",
+      "amount":6300,
+      "date_from":"10-02-2025",
+      "date_to":"20-03-2025",
+      "reserved":"NO"
+   },
+
+   {
+      "hotel_code":"CH-0003",
+      "hotel_name":"Cataratas Hotel 2",
+      "destination":"Puerto Iguazú",
+      "room_type":"Triple",
+      "amount":8200,
+      "date_from":"10-02-2025",
+      "date_to":"23-03-2025",
+      "reserved":"NO"
+   }
+]

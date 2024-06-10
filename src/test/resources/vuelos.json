@@ -1,0 +1,20 @@
+[
+   {
+      "flight_number":"BAPI-1235",
+      "origin":"Buenos Aires",
+      "destination":"Puerto Iguazú",
+      "seat_type":"Economy",
+      "amount":"6500",
+      "date_from":"10-02-2025",
+      "date_to":"15-02-2025"
+   },
+   {
+      "flight_number":"PIBA-1420",
+      "origin":"Puerto Iguazú",
+      "destination":"Bogotá",
+      "seat_type":"Business",
+      "amount":"43200",
+      "date_from":"10-02-2025",
+      "date_to":"20-02-2025"
+   }
+]
