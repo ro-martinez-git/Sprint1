@@ -17,6 +17,9 @@
 - Spring Dev Tools
 - IntelliJ IDEA
 - Postman
+- Spring boot starter test
+- Jakarta
+- Hibernate
 
 ---
 ### Descripción
@@ -175,16 +178,40 @@ POST /api/v1/flight-reservation
 }
 ```
 
+## Hoteles
+![img_5.png](img_5.png)
+
+![img_6.png](img_6.png)
+
+## Vuelos
+![img_7.png](img_7.png)
+
+![img_8.png](img_8.png)
+
+## Test De integracion
+![img_9.png](img_9.png)
+
+![img_10.png](img_10.png)
+
+- Link https://docs.google.com/document/d/1t7YWcYzNlXh3Urk2_wbdr3cAY-EGVvGghXEFxDlQkyI/edit
+
+
 Agradecemos la colaboracion de:
 
 Rocío Martínez: Creación de estructura y dependencias,Creación de US 0002, Obtener un listado de todos los hoteles disponibles en un determinado rango de fechas y según el destino seleccionado.
+Creacion de US0001 Y US0002 con Validaciones y test unitarios y de integracion.
 
 Franco Lazzaroni: Creación de US0001: Obtener un listado de todos los hoteles regisros,US 0003: Realizar una reserva de un hotel.
+Creacion de US0003 Y US0005 con Validaciones, test unitarios y de integracion.
 
 Alejandro Seravalle: Creación de Crud, US 0004 Obtener un listado de todos los vuelos registrados.
+Creacion de US0001 Y US0002 con Validaciones, test unitarios y de integracion.
+Creacion de Test unitario del CRUD de Hoteles.
 
 Manuel Efrain Muract Correa: Creación de US 0005,Obtener un listado de todos los vuelos disponibles.
+Creacion de US0006 con Validaciones, test unitarios y de integracion.
 
 Jorgelina Finello:Creación de US 0005, Obtener un listado de todos los vuelos disponibles.
+Creacion de US0005 con Validaciones, test unitarios y de integracion.
 
 Muchas Gracias!
