@@ -200,7 +200,7 @@ class HotelServiceImplTest {
 
         HotelRequestDTO hotelRequestDTOEsperado = hotelRequestDTO;
 
-        //Mockito.when(hotelRepository.update(Hotel1)).thenReturn(Hotel1);
+        Mockito.when(hotelRepository.update(Hotel1)).thenReturn(Hotel1);
         HotelRequestDTO hotelRequestDTOObtenido = hotelService.actualizarHotel(hotelRequestDTO);
 
         Assertions.assertEquals(hotelRequestDTOEsperado, hotelRequestDTOObtenido);
