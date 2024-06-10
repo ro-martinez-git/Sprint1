@@ -106,6 +106,7 @@ public class FligthControllerTest {
 
     private static final ErrorDTO errorDTO2 = new ErrorDTO("Se requieren todos los datos para filtrar", 400);
 
+    // test para listar todos los vuelos disponibles.
     @Test
     void listFlights() throws Exception  {
         ResultMatcher statusEsperado = MockMvcResultMatchers.status().isOk();
@@ -118,6 +119,7 @@ public class FligthControllerTest {
 
     }
 
+    // Test de Listar Vuelos por fechas, origen y destino.
     @Test
     public void getFligthByparamTestOK() throws Exception {
         //ACT
@@ -136,6 +138,7 @@ public class FligthControllerTest {
 
     }
 
+    // Test para validar cuando vienen parametros vacios.
     @Test
     public void getFligthNullparamTestOK() throws Exception {
         //ACT
@@ -151,6 +154,7 @@ public class FligthControllerTest {
 
     }
 
+    // Test para realizar la reserva de un vuelo.
     @Test
     public void postFligthReservationTestOK() throws Exception {
         //ACT

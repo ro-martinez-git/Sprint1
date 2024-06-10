@@ -95,6 +95,7 @@ public class HotelControllerIntegrationTest {
 
     private static final HotelRequestDTO hotelRequestDTO = new HotelRequestDTO ("CH-0002", "Cataratas Hotel", "Puerto Iguazú", "Doble", 6300.0,LocalDate.of(2025, 02,10), LocalDate.of(2025, 03, 20), "NO");
 
+    // Test de listar todos los hoteles disponibles.
     @Test
     public void getAllHotelsTestOK() throws Exception {
         //ACT
@@ -107,7 +108,7 @@ public class HotelControllerIntegrationTest {
                 .andExpectAll(statusEsperado, bodyEsperado, contentTypeEsperado);
 
     }
-
+    // Test de Listar Hoteles por fechas y destino validos.
     @Test
     public void getHotelsByparamTestOK() throws Exception {
         //ACT
@@ -124,7 +125,7 @@ public class HotelControllerIntegrationTest {
                 .andExpectAll(statusEsperado, bodyEsperado, contentTypeEsperado);
 
     }
-
+    //Test para validar todos los parametros requeridos pasados por @RequestParam.
     @Test
     public void getHotelsBadRequesTestOK() throws Exception {
         //ACT
@@ -141,6 +142,7 @@ public class HotelControllerIntegrationTest {
 
     }
 
+    // Test para listar todos los hoteles por codigo de hotel.
     @Test
     public void getHotelsByHotelCodeTestOK() throws Exception {
         //ACT
@@ -155,6 +157,7 @@ public class HotelControllerIntegrationTest {
                 .andExpectAll(statusEsperado, bodyEsperado, contentTypeEsperado);
     }
 
+    // Test para la reserva correcta de un hotel.
     @Test
     public void postHotelBookingTestOK() throws Exception {
         //ACT
@@ -171,6 +174,7 @@ public class HotelControllerIntegrationTest {
                 .andExpectAll(statusEsperado, bodyEsperado, contentTypeEsperado);
     }
 
+    // Test para la creacion de un hotel.
     @Test
     public void postHotelCreateTestOK() throws Exception {
         //ACT
