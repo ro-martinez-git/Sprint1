@@ -8,6 +8,103 @@
 	},
 	"item": [
 		{
+			"name": "Login Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmbGF6emFyb25pIiwiaWF0IjoxNzE5OTQ3MDA3LCJleHAiOjE3MTk5NDg4MDd9.CnS5aHJRjFqe1labg71cnIMQ3rmgRDRhvSCle0C5GnI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"juanperez@gmail.com\"    ,\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"username\" : \"flazzaroni\",\r\n      \"password\": \"masluz\",\r\n      \"firstName\": \"Franco\",\r\n      \"lastName\":\"Lazzaroni\"      \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegisterAdmin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"username\" : \"flazzaroni\",\r\n      \"password\": \"masluz\",\r\n      \"firstName\": \"Franco\",\r\n      \"lastName\":\"Lazzaroni\"\r\n      \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/registerAdmin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"registerAdmin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "US0001 - LISTAR TODOS LOS HOTELES",
 			"request": {
 				"auth": {
