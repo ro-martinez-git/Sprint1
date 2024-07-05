@@ -54,8 +54,7 @@ public class Booking {
     @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
 
-    @ManyToOne
-    @JoinColumn(name = "hotel_id")
+    @OneToOne(mappedBy = "booking")
     private Hotel hotel;
 
     @ManyToOne

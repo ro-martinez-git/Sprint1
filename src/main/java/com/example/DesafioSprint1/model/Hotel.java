@@ -48,8 +48,10 @@ public class Hotel {
     @Column(name = "reserved")
     private String reserved;
 
-    @OneToMany(mappedBy = "hotel")
-    private List<Booking> bookingList;
+    @OneToOne
+    @JoinColumn(name = "bookings_id")
+    private Booking booking;
+
 
 
 }
