@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,19 +73,25 @@ ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public RespuestaDTO delete(String hotelCode) {
-        Boolean delete = hotelRepository.delete(hotelCode);
-        if (delete == true) {
+        Hotel hotel = hotelRepository.findByHotelCode(hotelCode);
+        if (hotel != null) {
+            hotelRepository.delete(hotel);
             return new RespuestaDTO("Hotel eliminado con éxito");
 
         } else {
-            return new RespuestaDTO("No se pudo eliminar el hotel");
+            throw  new HotelNotFoundException();
         }
+
     }
 
     @Override
     public HotelRequestDTO actualizarHotel(HotelRequestDTO hotelRequestDTO) {
+        Hotel hotelRepo = hotelRepository.findByHotelCode(hotelRequestDTO.getHotelCode());
+        if(hotelRepo == null){
+            throw new HotelNotFoundException();
+        }
         Hotel hotel = modelMapper.map(hotelRequestDTO, Hotel.class);
-        hotelRepository.update(hotel);
+        hotelRepository.save(hotel);
         return hotelRequestDTO ;
     }
 

@@ -58,9 +58,10 @@ public class FlightController {
 
     }
 
-    @PostMapping("/flight-reservation")
+    @PostMapping("/flight-reservation/new")
     public ResponseEntity<?> reserveFlight(@RequestBody @Valid FlightReservationRequestDTO request) {
         //FlightReservationResponseDTO response = flightReservationService.reserveFlight(request);
         return new ResponseEntity<>(flightReservationService.reserveFlight(request), HttpStatus.CREATED);
     }
+
 }

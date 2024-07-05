@@ -1,12 +1,10 @@
 package com.example.DesafioSprint1.repository;
 
 import com.example.DesafioSprint1.model.Hotel;
+import com.example.DesafioSprint1.model.People;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface IPeopleRepository extends JpaRepository<People, Long> {
 
-public interface IHotelRepository extends JpaRepository<Hotel, Long> {
-
-    Hotel findByHotelCode(String hotelCode);
 
 }

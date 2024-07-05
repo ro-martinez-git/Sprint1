@@ -53,7 +53,7 @@ public class HotelController {
         }
 
     }
-        @PostMapping("/booking")
+        @PostMapping("/hotel-booking/new")
     public ResponseEntity<?> makeBooking(@RequestBody @Valid BookingRequestDTO bookingRequestDTO){
 
         return new ResponseEntity<>(bookingService.makeBooking(bookingRequestDTO), HttpStatus.CREATED);
@@ -64,17 +64,17 @@ public class HotelController {
         return new ResponseEntity<>(hotelService.findByHotelCode(hotelCode), HttpStatus.OK);
     }
 
-    @PostMapping("/createHotel")
+    @PostMapping("/hotels/new")
     public ResponseEntity<?> createHotel(@RequestBody HotelRequestDTO hotelRequestDTO) {
         return new ResponseEntity<>(hotelService.save(hotelRequestDTO), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/deleteHotel")
+    @DeleteMapping("/hotels/delete")
         public ResponseEntity<?> deleteHotel(@RequestParam ("hotel_code") String hotelCode) {
         return new ResponseEntity<>(hotelService.delete(hotelCode), HttpStatus.OK);
     }
 
-    @PutMapping("/updateHotel")
+    @PutMapping("/hotels/edit")
     public ResponseEntity<?> updateHotel(@RequestBody HotelRequestDTO hotelRequestDTO) {
         return new ResponseEntity<>(hotelService.actualizarHotel(hotelRequestDTO), HttpStatus.OK);
     }

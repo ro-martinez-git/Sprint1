@@ -7,6 +7,7 @@ import com.example.DesafioSprint1.dto.Response.BookingResponseDTO;
 import com.example.DesafioSprint1.dto.Response.StatusDTO;
 import com.example.DesafioSprint1.exceptions.*;
 import com.example.DesafioSprint1.model.Hotel;
+import com.example.DesafioSprint1.repository.IBookingRepository;
 import com.example.DesafioSprint1.repository.IHotelRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class BookingServiceImpl implements IBookingService{
 
     @Autowired
     private IHotelRepository hotelRepository;
+
+    @Autowired
+    private IBookingRepository bookingRepository;
 
 
     @Override
