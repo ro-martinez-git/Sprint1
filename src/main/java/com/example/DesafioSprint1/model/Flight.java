@@ -37,4 +37,8 @@ public class Flight {
     @Column(name = "date_to")
     private LocalDate dateTo;
 
+    @OneToOne
+    @JoinColumn(name = "flightreservations_id")
+    private FlightReservation flightReservation;
+
 }

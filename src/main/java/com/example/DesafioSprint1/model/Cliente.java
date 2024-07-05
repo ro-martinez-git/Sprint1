@@ -37,6 +37,9 @@ public class Cliente implements UserDetails {
     @OneToMany(mappedBy = "cliente")
     private List<Booking> bookingList;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<FlightReservation> flightReservationList;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

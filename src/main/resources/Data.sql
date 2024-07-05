@@ -12,6 +12,7 @@ INSERT INTO people (dni, name, last_name, birth_date, email) VALUES
 (33445566, 'Luis', 'Garcia', '1988-12-05', 'luisgarcia@gmail.com');
 
 
+
 -- Inserts de las formas de pago
 INSERT INTO payment_methods (type, number_card, dues )
 VALUES ('CREDIT', '1234-1234-1234-1234', 6 ), ('DEBIT', '2234-1234-1234-1234', 1 );
@@ -37,11 +38,8 @@ VALUES
     ('BG-0004', 'Bocagrande', 'Cartagena', 'Múltiple', 9370, '2025-04-17', '2025-06-12', 'NO',null);
 
 
-
-
 INSERT INTO booking_people (bookings_id, people_id) VALUES
 (1, 1),(1, 2);
-
 
     -- Inserts de la tabla flights
 INSERT INTO flights (flight_number, origin, destination, seat_type, amount, date_from, date_to)
@@ -58,6 +56,19 @@ VALUES
     ('BOBA-6567', 'Bogotá', 'Buenos Aires', 'Economy', 39860, '2025-03-01', '2025-03-14'),
     ('BOME-4442', 'Bogotá', 'Medellín', 'Economy', 11000, '2025-02-10', '2025-02-24'),
     ('MEPI-9986', 'Medellín', 'Puerto Iguazú', 'Business', 41640, '2025-04-17', '2025-05-02');
+
+    INSERT INTO flight_reservations (amount, date_from, date_to, seat_type, cliente_id, payment_method_id, destination, flight_number, origin)
+    VALUES (150000, '2025-02-10', '2025-03-20', 'Economy', 1, 1, 'Puerto Iguazú','BAPI-1235', 'Buenos Aires');
+
+    INSERT INTO flightreservation_people (flightreservation_id, people_id) VALUES
+    (1, 1);
+
+
+
+
+
+
+
 
 
 

@@ -31,4 +31,7 @@ public class PaymentMethod {
     @OneToOne(mappedBy = "paymentMethod")
     private Booking booking;
 
+    @OneToOne(mappedBy = "paymentMethod")
+    private FlightReservation flightReservation;
+
 }

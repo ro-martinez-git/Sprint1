@@ -15,8 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "bookings")
-public class Booking {
+@Table(name = "flight_reservations")
+public class FlightReservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,8 @@ public class Booking {
 
     @Column(name = "destination")
     private String destination;
+    @Column(name = "origin")
+    private String origin;
     @JsonProperty("date_from")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_from")
@@ -32,18 +34,18 @@ public class Booking {
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_to")
     private LocalDate dateTo;
-    @JsonProperty("hotel_code")
-    @Column(name = "hotel_code")
-    private String hotelCode;
-    @Column(name = "people_amount")
-    private Integer people_amount;
-    @JsonProperty("room_type")
-    @Column(name = "room_type")
-    private String roomType;
+    @JsonProperty("flight_number")
+    @Column(name = "flight_number")
+    private String flightNumber;
+    @Column(name = "seat_type")
+    private String seatType;
+    @JsonProperty("amount")
+    @Column(name = "amount")
+    private Double amount;
 
     @ManyToMany
-    @JoinTable(name = "booking_people"
-            , joinColumns = @JoinColumn(name = "bookings_id")
+    @JoinTable(name = "flightreservation_people"
+            , joinColumns = @JoinColumn(name = "flightreservation_id")
             , inverseJoinColumns = @JoinColumn(name = "people_id")
     )
     private List<People> peopleList;
@@ -52,8 +54,8 @@ public class Booking {
     @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
 
-    @OneToOne(mappedBy = "booking")
-    private Hotel hotel;
+    @OneToOne(mappedBy = "flightReservation")
+    private Flight flight;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")

@@ -36,6 +36,11 @@ public class People {
     @Column(name = "email")
     private String email;
 
-@ManyToMany(mappedBy = "peopleList")
-private List<Booking> bookingList;
+    @ManyToMany(mappedBy = "peopleList")
+    private List<Booking> bookingList;
+
+    @ManyToMany(mappedBy = "peopleList")
+    private List<FlightReservation> flightReservationList;
+
+
 }
