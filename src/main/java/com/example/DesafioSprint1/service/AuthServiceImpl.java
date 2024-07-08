@@ -8,7 +8,7 @@ import com.example.DesafioSprint1.jwt.JwtService;
 import com.example.DesafioSprint1.model.Rol;
 import com.example.DesafioSprint1.model.Cliente;
 
-import com.example.DesafioSprint1.repository.IUserRepository;
+import com.example.DesafioSprint1.repository.IClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements IAuthService{
 
-    private final IUserRepository repository;
+    private final IClienteRepository repository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;

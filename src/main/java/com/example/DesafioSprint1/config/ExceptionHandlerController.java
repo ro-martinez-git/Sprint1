@@ -31,6 +31,13 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(HotelBookingAlreadyRegisteredException.class)
+    public ResponseEntity<?> hotelBookingAlreadyRegisteredException(Exception e){
+        ErrorDTO error = new ErrorDTO("Ya existe una reserva con las mismas caracteristicas", 404);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+
     @ExceptionHandler(EmptyFlightReservationException.class)
     public ResponseEntity<?> emptyFlightReservationException(Exception e){
         ErrorDTO error = new ErrorDTO("Los datos de reserva no pueden estar vacios", 400);
@@ -46,6 +53,11 @@ public class ExceptionHandlerController {
     @ExceptionHandler(HotelNotFoundException.class)
     public ResponseEntity<?> HotelNotFoundException(Exception e){
         ErrorDTO error = new ErrorDTO("No existen hoteles con el codigo administrado", 400);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(HotelNotAvailableException.class)
+    public ResponseEntity<?> HotelNotAvailableException(Exception e){
+        ErrorDTO error = new ErrorDTO("No existen hoteles disponibles con los datos administrados", 400);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
@@ -95,6 +107,12 @@ public class ExceptionHandlerController {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> HttpMessageNotReadableException(Exception e){
         ErrorDTO error = new ErrorDTO("Solo se aceptan valores numéricos", 400);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoBookingsException.class)
+    public ResponseEntity<?> NoBookingsException(Exception e){
+        ErrorDTO error = new ErrorDTO("No hay reservas de hotel registradas", 404);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 

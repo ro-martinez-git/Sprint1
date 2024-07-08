@@ -28,7 +28,7 @@ public class PaymentMethod {
     @Column(name = "dues")
     private Integer dues;
 
-    @OneToOne(mappedBy = "paymentMethod")
+    @OneToOne(mappedBy = "paymentMethod", cascade = CascadeType.ALL, orphanRemoval = true)
     private Booking booking;
 
     @OneToOne(mappedBy = "paymentMethod")

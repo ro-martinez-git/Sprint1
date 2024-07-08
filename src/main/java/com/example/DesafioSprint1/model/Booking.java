@@ -41,14 +41,14 @@ public class Booking {
     @Column(name = "room_type")
     private String roomType;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "booking_people"
             , joinColumns = @JoinColumn(name = "bookings_id")
             , inverseJoinColumns = @JoinColumn(name = "people_id")
     )
     private List<People> peopleList;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
 
@@ -56,6 +56,7 @@ public class Booking {
     private Hotel hotel;
 
     @ManyToOne
+    @JsonProperty("user_name")
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
