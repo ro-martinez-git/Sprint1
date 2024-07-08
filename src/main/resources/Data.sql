@@ -15,7 +15,7 @@ INSERT INTO people (dni, name, last_name, birth_date, email) VALUES
 
 -- Inserts de las formas de pago
 INSERT INTO payment_methods (type, number_card, dues )
-VALUES ('CREDIT', '1234-1234-1234-1234', 6 ), ('DEBIT', '2234-1234-1234-1234', 1 );
+VALUES ('CREDIT', '1234-1234-1234-1234', 6 ), ('DEBIT', '2234-1234-1234-1234', 1 ), ('CREDIT', '1234-1234-1234-8889', 3 );
 
 -- Inserts de las reservas de hotel Booking
 INSERT INTO bookings (destination, date_from, date_to, hotel_code, people_amount, room_type, payment_method_id, cliente_id)
@@ -58,7 +58,7 @@ VALUES
     ('MEPI-9986', 'Medellín', 'Puerto Iguazú', 'Business', 41640, '2025-04-17', '2025-05-02');
 
     INSERT INTO flight_reservations (amount, date_from, date_to, seat_type, cliente_id, payment_method_id, destination, flight_number, origin)
-    VALUES (150000, '2025-02-10', '2025-03-20', 'Economy', 1, 1, 'Puerto Iguazú','BAPI-1235', 'Buenos Aires');
+    VALUES (150000, '2025-02-10', '2025-03-20', 'Economy', 1, 3, 'Puerto Iguazú','BAPI-1235', 'Buenos Aires');
 
     INSERT INTO flightreservation_people (flightreservation_id, people_id) VALUES
     (1, 1);

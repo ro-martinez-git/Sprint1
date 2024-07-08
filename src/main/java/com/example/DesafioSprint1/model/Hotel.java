@@ -48,7 +48,7 @@ public class Hotel {
     @Column(name = "reserved")
     private String reserved;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = false)
     @JoinColumn(name = "bookings_id")
     private Booking booking;
 

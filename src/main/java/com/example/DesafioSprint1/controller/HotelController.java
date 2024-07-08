@@ -53,11 +53,27 @@ public class HotelController {
         }
 
     }
-        @PostMapping("/hotel-booking/new")
-    public ResponseEntity<?> makeBooking(@RequestBody @Valid BookingRequestDTO bookingRequestDTO){
-
+        @PostMapping("/hotel-bookings/new")
+    public ResponseEntity<?> makeBooking(@RequestBody @Valid BookingRequestDTO bookingRequestDTO) throws Exception {
         return new ResponseEntity<>(bookingService.makeBooking(bookingRequestDTO), HttpStatus.CREATED);
     }
+
+    @PutMapping("/hotel-bookings/edit")
+    public ResponseEntity<?> saveBooking(@RequestBody @Valid BookingRequestDTO bookingRequestDTO, @RequestParam("id") Long id) throws Exception {
+        return new ResponseEntity<>(bookingService.saveBooking(bookingRequestDTO, id), HttpStatus.OK);
+    }
+
+    @GetMapping("/hotel-bookings/")
+    public ResponseEntity<?> listaBookings() throws Exception {
+        return new ResponseEntity<>(bookingService.listaBookings(), HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/hotel-bookings/delete")
+    public ResponseEntity<?> deleteBooking(@RequestParam ("id") Long bookingId) {
+        return new ResponseEntity<>(bookingService.deleteBooking(bookingId), HttpStatus.OK);
+    }
+
 
     @GetMapping("/searchHotelCode")
     public ResponseEntity<?> searchHotelCode(@RequestParam("hotel_code") String hotelCode){
@@ -69,8 +85,10 @@ public class HotelController {
         return new ResponseEntity<>(hotelService.save(hotelRequestDTO), HttpStatus.CREATED);
     }
 
+
+
     @DeleteMapping("/hotels/delete")
-        public ResponseEntity<?> deleteHotel(@RequestParam ("hotel_code") String hotelCode) {
+    public ResponseEntity<?> deleteHotel(@RequestParam ("hotel_code") String hotelCode) {
         return new ResponseEntity<>(hotelService.delete(hotelCode), HttpStatus.OK);
     }
 
