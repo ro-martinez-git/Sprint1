@@ -49,7 +49,7 @@ public class Booking {
     private List<People> peopleList;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "payment_method_id")
+    @JoinColumn(name = "payment_methods_id")
     private PaymentMethod paymentMethod;
 
     @OneToOne(mappedBy = "booking")
@@ -57,7 +57,7 @@ public class Booking {
 
     @ManyToOne
     @JsonProperty("user_name")
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "clientes_id")
     private Cliente cliente;
 
 

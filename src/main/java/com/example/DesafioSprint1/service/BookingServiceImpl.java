@@ -109,6 +109,7 @@ public class BookingServiceImpl implements IBookingService{
 
         }         booking.setPeopleList(savedPeopleList);
         booking.getHotel().setReserved("SI");
+        booking.getHotel().setBooking(booking);
         bookingRepository.save(booking);
 
         return answer;

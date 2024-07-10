@@ -9,17 +9,34 @@ import com.example.DesafioSprint1.exceptions.BookingRegistrationException;
 import com.example.DesafioSprint1.exceptions.EmptyFlightReservationException;
 import com.example.DesafioSprint1.exceptions.InvalidDateFromException;
 import com.example.DesafioSprint1.exceptions.InvalidPaymentDebitDues;
-import com.example.DesafioSprint1.model.Flight;
-import com.example.DesafioSprint1.repository.IFlightRepository;
+import com.example.DesafioSprint1.model.*;
+import com.example.DesafioSprint1.repository.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightReservationServiceImpl implements IFlightReservationService {
 
     @Autowired
     private IFlightRepository flightRepository;
+    @Autowired
+    private IFlightReservationRepository flightReservationRepository;
+    @Autowired
+    private IPeopleRepository peopleRepository;
 
+    @Autowired
+    IClienteRepository clienteRepository;
+
+    @Autowired
+    IPaymentMethodRepository paymentMethodRepository;
+
+    ModelMapper modelMapper = new ModelMapper();
     @Override
     public FlightReservationResponseDTO reserveFlight(FlightReservationRequestDTO request) {
 
@@ -65,6 +82,35 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
             response.setTotal(total);
             response.setFlightReservation(request.getFlightReservation());
             response.setStatusDTO(new StatusDTO("La reserva finalizó satisfactoriamente", 201));
+
+        FlightReservation flightReservation = modelMapper.map(request.getFlightReservation(), FlightReservation.class);
+        Cliente cliente = clienteRepository.findByUsername(request.getUserName()).get();
+        flightReservation.setCliente(cliente);
+        flightReservation.setFlight(flightRepository.findByFlightNumber(request.getFlightReservation()
+                .getFlightNumber()).get().stream().filter(f -> f.getSeatType().toUpperCase()
+                .equals(request.getFlightReservation().getSeatType().toUpperCase())).toList().get(0));
+        flightReservation.setPaymentMethod(
+                modelMapper.map(request.getFlightReservation().getPaymentMethod(), PaymentMethod.class)
+        );
+        List<People> peopleList =  new ArrayList<>();
+        for( PeopleDTO peopleDTO : request.getFlightReservation().getPeople())
+        {   People people = modelMapper.map(peopleDTO, People.class);
+            peopleList.add(people);
+        }
+        List<People> savedPeopleList = new ArrayList<>();
+        for (People person : peopleList) {
+            Optional<People> existingPerson = peopleRepository.findByDni(person.getDni());
+            if (existingPerson.isPresent()) {                savedPeopleList.add(existingPerson.get());
+            } else {
+                People savedPerson = peopleRepository.save(person);
+                savedPeopleList.add(savedPerson);
+            }
+
+        }         flightReservation.setPeopleList(savedPeopleList);
+        flightReservation.getFlight().setReserved("SI");
+        flightReservation.setAmount(response.getAmount());
+        flightReservation.getFlight().setFlightReservation(flightReservation);
+        flightReservationRepository.save(flightReservation);
 
             return response;
         }

@@ -36,9 +36,11 @@ public class Flight {
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_to")
     private LocalDate dateTo;
+    @Column(name = "reserved")
+    private String reserved;
 
-    @OneToOne
-    @JoinColumn(name = "flightreservations_id")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = false)
+    @JoinColumn(name = "flight_reservations_id")
     private FlightReservation flightReservation;
 
 }

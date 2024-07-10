@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e979d586-9a5a-4f9c-b48f-6ce7c02f6513",
+		"_postman_id": "da015ffa-6449-4392-ba7d-5b70b0dc4f7b",
 		"name": "SPRINT-3",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "14105648",
-		"_collection_link": "https://adpsancorsalud.postman.co/workspace/Capacitacion~4e21afef-b554-4a50-a068-600549a9a6cd/collection/14105648-e979d586-9a5a-4f9c-b48f-6ce7c02f6513?action=share&source=collection_link&creator=14105648"
+		"_exporter_id": "34147659"
 	},
 	"item": [
 		{
@@ -24,7 +23,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"juanperez@gmail.com\"    ,\r\n    \"password\": \"123\"\r\n}",
+					"raw": "{\r\n    \"username\": \"flazzaroni\",\r\n    \"password\": \"masluz\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1487,14 +1486,7 @@
 			"name": "US0004 - LISTAR TODOS LOS VUELOS REGISTRADOS",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [],

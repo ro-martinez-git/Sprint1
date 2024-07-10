@@ -18,7 +18,7 @@ INSERT INTO payment_methods (type, number_card, dues )
 VALUES ('CREDIT', '1234-1234-1234-1234', 6 ), ('DEBIT', '2234-1234-1234-1234', 1 ), ('CREDIT', '1234-1234-1234-8889', 3 );
 
 -- Inserts de las reservas de hotel Booking
-INSERT INTO bookings (destination, date_from, date_to, hotel_code, people_amount, room_type, payment_method_id, cliente_id)
+INSERT INTO bookings (destination, date_from, date_to, hotel_code, people_amount, room_type, payment_methods_id, clientes_id)
 VALUES ('Cataratas Hotel', '2025-02-10', '2025-03-20', 'CH-0002', 2, 'DOBLE', 1, 1);
 
 -- Inserts de los Hoteles
@@ -41,26 +41,28 @@ VALUES
 INSERT INTO booking_people (bookings_id, people_id) VALUES
 (1, 1),(1, 2);
 
+INSERT INTO flight_reservations (amount, date_from, date_to, seat_type, clientes_id, payment_method_id, destination, flight_number, origin)
+VALUES (150000, '2025-02-10', '2025-03-20', 'Economy', 1, 3, 'Puerto Iguazú','BAPI-1235', 'Buenos Aires');
     -- Inserts de la tabla flights
-INSERT INTO flights (flight_number, origin, destination, seat_type, amount, date_from, date_to)
+INSERT INTO flights (flight_number, origin, destination, seat_type, amount, date_from, date_to,reserved, flight_reservations_id)
 VALUES
-    ('BAPI-1235', 'Buenos Aires', 'Puerto Iguazú', 'Economy', 6500, '2025-02-10', '2025-02-15'),
-    ('PIBA-1420', 'Puerto Iguazú', 'Bogotá', 'Business', 43200, '2025-02-10', '2025-02-20'),
-    ('PIBA-1420', 'Puerto Iguazú', 'Bogotá', 'Economy', 25735, '2025-02-10', '2025-02-21'),
-    ('BATU-5536', 'Buenos Aires', 'Tucumán', 'Economy', 7320, '2025-02-10', '2025-02-17'),
-    ('TUPI-3369', 'Tucumán', 'Puerto Iguazú', 'Business', 12530, '2025-02-12', '2025-02-23'),
-    ('TUPI-3369', 'Tucumán', 'Puerto Iguazú', 'Economy', 5400, '2025-01-02', '2025-01-16'),
-    ('BOCA-4213', 'Bogotá', 'Cartagena', 'Economy', 8000, '2025-01-23', '2025-02-05'),
-    ('CAME-0321', 'Cartagena', 'Medellín', 'Economy', 7800, '2025-01-23', '2025-01-31'),
-    ('BOBA-6567', 'Bogotá', 'Buenos Aires', 'Business', 57000, '2025-02-15', '2025-02-28'),
-    ('BOBA-6567', 'Bogotá', 'Buenos Aires', 'Economy', 39860, '2025-03-01', '2025-03-14'),
-    ('BOME-4442', 'Bogotá', 'Medellín', 'Economy', 11000, '2025-02-10', '2025-02-24'),
-    ('MEPI-9986', 'Medellín', 'Puerto Iguazú', 'Business', 41640, '2025-04-17', '2025-05-02');
+('BAPI-1235', 'Buenos Aires', 'Puerto Iguazú', 'Economy', 6500, '2025-02-10', '2025-02-15','SI', 1),
+    ('PIBA-1420', 'Puerto Iguazú', 'Bogotá', 'Business', 43200, '2025-02-10', '2025-02-20', 'NO', NULL),
+    ('PIBA-1420', 'Puerto Iguazú', 'Bogotá', 'Economy', 25735, '2025-02-10', '2025-02-21', 'NO', NULL),
+    ('BATU-5536', 'Buenos Aires', 'Tucumán', 'Economy', 7320, '2025-02-10', '2025-02-17', 'NO', NULL),
+    ('TUPI-3369', 'Tucumán', 'Puerto Iguazú', 'Business', 12530, '2025-02-12', '2025-02-23', 'NO', NULL),
+    ('TUPI-3369', 'Tucumán', 'Puerto Iguazú', 'Economy', 5400, '2025-01-02', '2025-01-16', 'NO', NULL),
+    ('BOCA-4213', 'Bogotá', 'Cartagena', 'Economy', 8000, '2025-01-23', '2025-02-05', 'NO', NULL),
+    ('CAME-0321', 'Cartagena', 'Medellín', 'Economy', 7800, '2025-01-23', '2025-01-31', 'NO', NULL),
+    ('BOBA-6567', 'Bogotá', 'Buenos Aires', 'Business', 57000, '2025-02-15', '2025-02-28', 'NO', NULL),
+    ('BOBA-6567', 'Bogotá', 'Buenos Aires', 'Economy', 39860, '2025-03-01', '2025-03-14', 'NO', NULL),
+    ('BOME-4442', 'Bogotá', 'Medellín', 'Economy', 11000, '2025-02-10', '2025-02-24', 'NO', NULL),
+    ('MEPI-9986', 'Medellín', 'Puerto Iguazú', 'Business', 41640, '2025-04-17', '2025-05-02', 'NO', NULL);
 
-    INSERT INTO flight_reservations (amount, date_from, date_to, seat_type, cliente_id, payment_method_id, destination, flight_number, origin)
-    VALUES (150000, '2025-02-10', '2025-03-20', 'Economy', 1, 3, 'Puerto Iguazú','BAPI-1235', 'Buenos Aires');
 
-    INSERT INTO flightreservation_people (flightreservation_id, people_id) VALUES
+
+
+    INSERT INTO flight_reservations_people (flight_reservations_id, people_id) VALUES
     (1, 1);
 
 
