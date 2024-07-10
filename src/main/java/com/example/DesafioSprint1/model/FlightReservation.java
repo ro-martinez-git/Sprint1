@@ -44,8 +44,8 @@ public class FlightReservation {
     private Double amount;
 
     @ManyToMany
-    @JoinTable(name = "flightreservation_people"
-            , joinColumns = @JoinColumn(name = "flightreservation_id")
+    @JoinTable(name = "flight_reservations_people"
+            , joinColumns = @JoinColumn(name = "flight_reservations_id")
             , inverseJoinColumns = @JoinColumn(name = "people_id")
     )
     private List<People> peopleList;
@@ -58,7 +58,7 @@ public class FlightReservation {
     private Flight flight;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "clientes_id")
     private Cliente cliente;
 
 
