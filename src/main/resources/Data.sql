@@ -1,7 +1,7 @@
 
 -- Inserts de los clientes
 INSERT INTO clientes (username,password, firstname,lastname,role)
-VALUES ('flazzaroni', '$2a$10$3/5ukbr7EaALD6QVn7h5r..NUIABND14nw6lPOmketmj/d8NMrLFu', 'Franco', 'Lazzaroni', 'CLIENTE');
+VALUES ('flazzaroni', '$2a$10$3/5ukbr7EaALD6QVn7h5r..NUIABND14nw6lPOmketmj/d8NMrLFu', 'Franco', 'Lazzaroni', 'EMPLEADO');
 
 -- Inserts de las personas
 INSERT INTO people (dni, name, last_name, birth_date, email) VALUES
@@ -18,8 +18,8 @@ INSERT INTO payment_methods (type, number_card, dues )
 VALUES ('CREDIT', '1234-1234-1234-1234', 6 ), ('DEBIT', '2234-1234-1234-1234', 1 ), ('CREDIT', '1234-1234-1234-8889', 3 );
 
 -- Inserts de las reservas de hotel Booking
-INSERT INTO bookings (destination, date_from, date_to, hotel_code, people_amount, room_type, payment_methods_id, clientes_id)
-VALUES ('Cataratas Hotel', '2025-02-10', '2025-03-20', 'CH-0002', 2, 'DOBLE', 1, 1);
+INSERT INTO bookings (destination, date_from, date_to, hotel_code, people_amount, room_type, payment_methods_id, clientes_id, amount, creation_date)
+VALUES ('Cataratas Hotel', '2025-02-10', '2025-03-20', 'CH-0002', 2, 'DOBLE', 1, 1, 478800, '2025-03-20' );
 
 -- Inserts de los Hoteles
 INSERT INTO hotels (hotel_code, hotel_name, destination, room_type, amount, date_from, date_to, reserved, bookings_id)
@@ -41,8 +41,8 @@ VALUES
 INSERT INTO booking_people (bookings_id, people_id) VALUES
 (1, 1),(1, 2);
 
-INSERT INTO flight_reservations (amount, date_from, date_to, seat_type, clientes_id, payment_method_id, destination, flight_number, origin)
-VALUES (150000, '2025-02-10', '2025-03-20', 'Economy', 1, 3, 'Puerto Iguazú','BAPI-1235', 'Buenos Aires');
+INSERT INTO flight_reservations (amount, date_from, date_to, seat_type, clientes_id, payment_method_id, destination, flight_number, origin, creation_date)
+VALUES (150000, '2025-02-10', '2025-03-20', 'Economy', 1, 3, 'Puerto Iguazú','BAPI-1235', 'Buenos Aires', '2025-03-20') ;
     -- Inserts de la tabla flights
 INSERT INTO flights (flight_number, origin, destination, seat_type, amount, date_from, date_to,reserved, flight_reservations_id)
 VALUES

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +111,8 @@ public class BookingServiceImpl implements IBookingService{
         }         booking.setPeopleList(savedPeopleList);
         booking.getHotel().setReserved("SI");
         booking.getHotel().setBooking(booking);
+        booking.setAmount(amount);
+        booking.setCreationDate(LocalDate.now());
         bookingRepository.save(booking);
 
         return answer;
@@ -138,7 +141,6 @@ public class BookingServiceImpl implements IBookingService{
         paymentMethodRepository.save(paymentMethod);
         booking.setPaymentMethod(paymentMethod);
 
-        bookingRepository.save(booking);
 
         BookingResponseDTO bookingResponseDTO = new BookingResponseDTO()    ;
         bookingResponseDTO.setUserName(booking.getCliente().getUsername());
@@ -150,6 +152,12 @@ public class BookingServiceImpl implements IBookingService{
         bookingResponseDTO.setInterest(CalculateInterest(bookingRequestDTO.getBookingDTO().getPaymentMethodDTO())        );
         bookingResponseDTO.setTotal(    ((bookingResponseDTO.getAmount() * bookingResponseDTO.getInterest() / 100) + bookingResponseDTO.getAmount() )    );
         bookingResponseDTO.setStatusDTO(new StatusDTO("El proceso termino satisfactoriamente", 200));
+
+        booking.setAmount(bookingResponseDTO.getAmount());
+        booking.setCreationDate(LocalDate.now());
+        bookingRepository.save(booking);
+
+
         return bookingResponseDTO;
 
     }
@@ -248,9 +256,9 @@ public class BookingServiceImpl implements IBookingService{
                     .filter(bookingRepo -> bookingRepo.getRoomType().equals(request.getRoomType()))
                     .toList();
         }
-    if( obtenido.isEmpty()) {return true;}
+        if( obtenido.isEmpty()) {return true;}
 
-    return false;
+        return false;
     }
 
 

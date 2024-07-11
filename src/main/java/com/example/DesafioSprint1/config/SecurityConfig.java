@@ -1,6 +1,7 @@
 package com.example.DesafioSprint1.config;
 
 import com.example.DesafioSprint1.jwt.JwtAuthenticationFilter;
+import com.example.DesafioSprint1.model.Rol;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,15 +26,14 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf-> csrf.disable()).authorizeHttpRequests(authRequest ->
                         authRequest.requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/api/v1/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/helloUser").hasAuthority("USER" )
-                        .requestMatchers(HttpMethod.GET, "/api/v1/helloUser").hasAuthority("ADMIN" )
-                                .requestMatchers(HttpMethod.GET, "/api/v1/helloAdmin").hasAuthority("ADMIN")
+//                        .requestMatchers("/api/v1/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/income").hasAuthority("EMPLEADO" )
+                                .requestMatchers(HttpMethod.GET, "/api/v1/incomeMonth").hasAuthority("EMPLEADO" )
                                 .anyRequest().authenticated())
                 .sessionManagement( sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-    
+
 }

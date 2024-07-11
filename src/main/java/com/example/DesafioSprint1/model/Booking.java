@@ -41,6 +41,12 @@ public class Booking {
     @Column(name = "room_type")
     private String roomType;
 
+    @Column(name = "amount")
+    private Double amount;
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
+
+
     @ManyToMany()
     @JoinTable(name = "booking_people"
             , joinColumns = @JoinColumn(name = "bookings_id")
