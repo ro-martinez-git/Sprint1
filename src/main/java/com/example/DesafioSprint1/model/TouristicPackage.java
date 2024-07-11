@@ -30,7 +30,6 @@ public class TouristicPackage {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate creationDate;
 
-
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Cliente cliente;
@@ -45,7 +44,7 @@ public class TouristicPackage {
     @JoinTable(name = "touristic_package_bookings",
             joinColumns = @JoinColumn(name = "touristic_package_id"),
             inverseJoinColumns = @JoinColumn(name = "bookings"))
-    private List<Booking> Bookings = new ArrayList<>();
+    private List<Booking> bookings = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "payment_method")
@@ -55,7 +54,7 @@ public class TouristicPackage {
 
     public void calculateTotalCost() {
         double flightCost = flightReservations.stream().mapToDouble(FlightReservation::getAmount).sum();
-        double hotelCost = Bookings.stream().mapToDouble(Booking::getAmount).sum();
+        double hotelCost = bookings.stream().mapToDouble(Booking::getAmount).sum();
         double total = flightCost + hotelCost;
         this.totalCost = total - (total * 0.1); // Aplica el 10% de descuento
     }

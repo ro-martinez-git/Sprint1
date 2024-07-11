@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -26,6 +27,9 @@ public class TouristicPackageResponseDTO {
 
     @JsonProperty("client_id")
     private int clientId;
+
+    @JsonProperty("bookings_or_reservations")
+    private Map<String, Integer> bookingsOrReservations;
 
     @JsonProperty("total_cost")
     private Double totalCost;

@@ -35,6 +35,7 @@ public class TouristicPackageService {
     public void createTouristicPackage(TouristicPackageDTO dto) {
         TouristicPackage touristicPackage = new TouristicPackage();
         mapRequestToTouristicPackage(dto, touristicPackage);
+        touristicPackage.calculateTotalCost();
         touristicPackageRepository.save(touristicPackage);
     }
 
@@ -44,6 +45,7 @@ public class TouristicPackageService {
             throw new RuntimeException("Paquete turistico no encontrado con numero: " + packageNumber);
         }
         mapRequestToTouristicPackage(request, touristicPackage);
+        touristicPackage.calculateTotalCost();
         touristicPackageRepository.save(touristicPackage);
     }
 
@@ -65,20 +67,25 @@ public class TouristicPackageService {
         responseDTO.setPackageNumber(touristicPackage.getPackageNumber());
         responseDTO.setName(touristicPackage.getName());
         responseDTO.setCreationDate(touristicPackage.getCreationDate());
-        responseDTO.setClientId(Math.toIntExact(touristicPackage.getCliente().getId()));
+        responseDTO.setClientId(touristicPackage.getCliente().getId().intValue());
         responseDTO.setTotalCost(touristicPackage.getTotalCost());
+        if (touristicPackage.getFlightReservations() != null && !touristicPackage.getFlightReservations().isEmpty()
+                && touristicPackage.getBookings() != null && !touristicPackage.getBookings().isEmpty()) {
+            responseDTO.setBookingsOrReservations(Map.of(
+                    "flight_reservation", touristicPackage.getFlightReservations().get(0).getId().intValue(),
+                    "booking", touristicPackage.getBookings().get(0).getId().intValue()
+            ));
+        } else {
+            responseDTO.setBookingsOrReservations(null);
+        }
+
         return responseDTO;
     }
 
     private TouristicPackage mapRequestToTouristicPackage(TouristicPackageDTO request, TouristicPackage touristicPackage) {
-        TouristicPackage TouristicPackage = new TouristicPackage();
-
-
-
         if (request.getPackageNumber() > 0) {
             touristicPackage.setPackageNumber(request.getPackageNumber());
         }
-
 
         touristicPackage.setName(request.getName());
         touristicPackage.setCreationDate(request.getCreationDate());
@@ -95,18 +102,19 @@ public class TouristicPackageService {
 
                 if (key.equals("flight_reservation")) {
                     FlightReservation flightReservation = flightReservationRepository.findById(Long.valueOf(value))
-                            .orElseThrow(() -> new RuntimeException("Reserva de vuelo no encontrada con ID: " + request.getBookingsOrReservations().get("flight_reservation(flight_id)")));
+                            .orElseThrow(() -> new RuntimeException("Reserva de vuelo no encontrada con ID: " + value));
                     flightReservations.add(flightReservation);
                 } else if (key.equals("booking")) {
                     Booking booking = bookingRepository.findById(Long.valueOf(value))
-                            .orElseThrow(() -> new RuntimeException("Reserva de hotel no encontrada con ID: " + request.getBookingsOrReservations().get("booking(hotel_id)")));
+                            .orElseThrow(() -> new RuntimeException("Reserva de hotel no encontrada con ID: " + value));
                     hotelBookings.add(booking);
                 }
             }
 
-            TouristicPackage.setFlightReservations(flightReservations);
-            TouristicPackage.setBookings(hotelBookings);
+            touristicPackage.setFlightReservations(flightReservations);
+            touristicPackage.setBookings(hotelBookings);
         }
+        touristicPackage.calculateTotalCost();
 
         return touristicPackage;
     }
