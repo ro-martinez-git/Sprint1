@@ -37,6 +37,17 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(FlightExistException.class)
+    public ResponseEntity<?> FlighExistException(Exception e){
+        ErrorDTO error = new ErrorDTO("Este número de vuelo ya se encuentra registrado", 404);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(FlightNoExistException.class)
+    public ResponseEntity<?> FlightNoExistException(Exception e){
+        ErrorDTO error = new ErrorDTO("No hay vuelos para el ID ingresado", 404);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
 
     @ExceptionHandler(EmptyFlightReservationException.class)
     public ResponseEntity<?> emptyFlightReservationException(Exception e){

@@ -1,7 +1,10 @@
 package com.example.DesafioSprint1.service;
 
 import com.example.DesafioSprint1.dto.FlightDTO;
+import com.example.DesafioSprint1.dto.RespuestaDTO;
 import com.example.DesafioSprint1.exceptions.DateRangeFrom;
+import com.example.DesafioSprint1.exceptions.FlightExistException;
+import com.example.DesafioSprint1.exceptions.FlightNoExistException;
 import com.example.DesafioSprint1.exceptions.FlightNotFoundException;
 import com.example.DesafioSprint1.model.Flight;
 import com.example.DesafioSprint1.repository.IFlightRepository;
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class FlightServiceImpl implements IFlightService {
 
@@ -62,5 +67,50 @@ public class FlightServiceImpl implements IFlightService {
                 .toList();
 
 
+    }
+
+    @Override
+    public RespuestaDTO crear(FlightDTO requestflightDTO) {
+        List<Flight> listaVuelos = flightRepository.findAll();
+
+        List<Flight> vuelosFiltrados = listaVuelos.stream()
+                .filter(flight -> flight.getFlightNumber().equals(requestflightDTO.getFlightNumber())                    )
+                .filter(flight -> flight.getSeatType().equals(requestflightDTO.getSeatType())                    )
+                .toList();
+
+        if (!vuelosFiltrados.isEmpty()) {
+            throw new FlightExistException();
+        }
+        Flight flight = modelMapper.map(requestflightDTO, Flight.class);
+        flightRepository.save(flight);
+        return new RespuestaDTO("Vuelo dado de alta correctamente");
+    }
+
+    @Override
+    public RespuestaDTO actualizar(Long Id, FlightDTO flightDTO) {
+        Optional<Flight> optionalFlight = flightRepository.findById(Id);
+        if (optionalFlight.isPresent()) {
+            Flight fligthModificado = modelMapper.map(flightDTO, Flight.class);
+            Flight vuelo = optionalFlight.get();
+            fligthModificado.setId(vuelo.getId());
+            vuelo = fligthModificado;
+            flightRepository.save(vuelo);
+
+            return new RespuestaDTO("Vuelo modificado correctamente");
+        }
+        else {
+            throw new FlightNoExistException();
+        }
+    }
+    @Override
+    public RespuestaDTO borrar(Long Id) {
+        Optional<Flight> optionalFlight = flightRepository.findById(Id);
+        if (optionalFlight.isEmpty()) {
+            throw new FlightNoExistException();
+        }
+        Flight flightEncontrado = optionalFlight.get();
+        flightRepository.delete(flightEncontrado);
+
+        return new RespuestaDTO("Vuelo con código " + Id + " borrado correctamente");
     }
 }
