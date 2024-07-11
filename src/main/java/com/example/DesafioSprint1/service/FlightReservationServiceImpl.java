@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,35 +54,35 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
             }
         }
 
-            // obtener informacion del vuelo desde el servicio
-            Flight flight = flightRepository.findAll().stream()
-                    .filter(f -> f.getFlightNumber().equals(request.getFlightReservation().getFlightNumber()))
-                    .filter(f -> f.getDateFrom().equals(request.getFlightReservation().getDateFrom()))
-                    .filter(f -> f.getDateTo().equals(request.getFlightReservation().getDateTo()))
-                    .filter(f -> f.getOrigin().equals(request.getFlightReservation().getOrigin()))
-                    .filter(f -> f.getDestination().equals(request.getFlightReservation().getDestination()))
-                    .filter(f -> f.getSeatType().equals(request.getFlightReservation().getSeatType()))
-                    .findFirst()
-                    .orElse(null);
+        // obtener informacion del vuelo desde el servicio
+        Flight flight = flightRepository.findAll().stream()
+                .filter(f -> f.getFlightNumber().equals(request.getFlightReservation().getFlightNumber()))
+                .filter(f -> f.getDateFrom().equals(request.getFlightReservation().getDateFrom()))
+                .filter(f -> f.getDateTo().equals(request.getFlightReservation().getDateTo()))
+                .filter(f -> f.getOrigin().equals(request.getFlightReservation().getOrigin()))
+                .filter(f -> f.getDestination().equals(request.getFlightReservation().getDestination()))
+                .filter(f -> f.getSeatType().equals(request.getFlightReservation().getSeatType()))
+                .findFirst()
+                .orElse(null);
 
-            if (flight == null) {
-                throw new BookingRegistrationException();
-            }
+        if (flight == null) {
+            throw new BookingRegistrationException();
+        }
 
-            // calcular el precio base
-            double basePrice = flight.getAmount() * request.getFlightReservation().getSeats();
-            // calcular los intereses
-            double interest = this.calculateInterest(request.getFlightReservation().getPaymentMethod());
-            // calcular el monto total
-            double total = basePrice * interest / 100 + basePrice;
+        // calcular el precio base
+        double basePrice = flight.getAmount() * request.getFlightReservation().getSeats();
+        // calcular los intereses
+        double interest = this.calculateInterest(request.getFlightReservation().getPaymentMethod());
+        // calcular el monto total
+        double total = basePrice * interest / 100 + basePrice;
 
-            FlightReservationResponseDTO response = new FlightReservationResponseDTO();
-            response.setUserName(request.getUserName());
-            response.setAmount(basePrice);
-            response.setInterest(interest);
-            response.setTotal(total);
-            response.setFlightReservation(request.getFlightReservation());
-            response.setStatusDTO(new StatusDTO("La reserva finalizó satisfactoriamente", 201));
+        FlightReservationResponseDTO response = new FlightReservationResponseDTO();
+        response.setUserName(request.getUserName());
+        response.setAmount(basePrice);
+        response.setInterest(interest);
+        response.setTotal(total);
+        response.setFlightReservation(request.getFlightReservation());
+        response.setStatusDTO(new StatusDTO("La reserva finalizó satisfactoriamente", 201));
 
         FlightReservation flightReservation = modelMapper.map(request.getFlightReservation(), FlightReservation.class);
         Cliente cliente = clienteRepository.findByUsername(request.getUserName()).get();
@@ -110,37 +111,38 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
         flightReservation.getFlight().setReserved("SI");
         flightReservation.setAmount(response.getAmount());
         flightReservation.getFlight().setFlightReservation(flightReservation);
+        flightReservation.setCreationDate(LocalDate.now());
         flightReservationRepository.save(flightReservation);
 
-            return response;
-        }
-        public Boolean ValidatePaymentMethodAndDues (PaymentMethodDTO paymentMethodDTO)
-        {
-            if (paymentMethodDTO.getType().toUpperCase().equals("CREDIT")
-                    && paymentMethodDTO.getDues() >= 1
-            ) {
-                return true;
-            } else if (paymentMethodDTO.getType().toUpperCase().equals("DEBIT")
-                    && paymentMethodDTO.getDues() == 1) {
-                return true;
-            } else return false;
-        }
-        private double calculateInterest (PaymentMethodDTO paymentMethodDTO){
+        return response;
+    }
+    public Boolean ValidatePaymentMethodAndDues (PaymentMethodDTO paymentMethodDTO)
+    {
+        if (paymentMethodDTO.getType().toUpperCase().equals("CREDIT")
+                && paymentMethodDTO.getDues() >= 1
+        ) {
+            return true;
+        } else if (paymentMethodDTO.getType().toUpperCase().equals("DEBIT")
+                && paymentMethodDTO.getDues() == 1) {
+            return true;
+        } else return false;
+    }
+    private double calculateInterest (PaymentMethodDTO paymentMethodDTO){
 
-            if (paymentMethodDTO.getType().toUpperCase().equals("DEBIT")) {
-                return 0.0;
-            } else if (paymentMethodDTO.getType().toUpperCase().equals("CREDIT")) {
-                if (paymentMethodDTO.getDues() > 1 && paymentMethodDTO.getDues() <= 3) {
-                    return 5.0;
-                } else if (paymentMethodDTO.getDues() > 3 && paymentMethodDTO.getDues() <= 6) {
-                    return 10.0;
-                }
+        if (paymentMethodDTO.getType().toUpperCase().equals("DEBIT")) {
+            return 0.0;
+        } else if (paymentMethodDTO.getType().toUpperCase().equals("CREDIT")) {
+            if (paymentMethodDTO.getDues() > 1 && paymentMethodDTO.getDues() <= 3) {
+                return 5.0;
+            } else if (paymentMethodDTO.getDues() > 3 && paymentMethodDTO.getDues() <= 6) {
+                return 10.0;
             }
-            return 15.0;  //Este seria el interes por mas cuotas que 6 (No definido en la Doc).
-
-
         }
+        return 15.0;  //Este seria el interes por mas cuotas que 6 (No definido en la Doc).
 
 
     }
+
+
+}
 

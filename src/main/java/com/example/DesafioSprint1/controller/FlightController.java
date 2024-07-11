@@ -58,6 +58,23 @@ public class FlightController {
 
     }
 
+    @PostMapping("/new")
+    public ResponseEntity<?> crear(@RequestBody FlightDTO fligth){
+        return new ResponseEntity<>(flightService.crear(fligth), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?>borrar(@RequestParam("Id") Long Id) {
+        return new ResponseEntity<>(flightService.borrar(Id),HttpStatus.OK);
+    }
+
+    @PutMapping("/edit")
+    public ResponseEntity<?> actualizarVuelo(@RequestParam("Id") Long Id,
+                                             @RequestBody FlightDTO flightDTO) {
+        return new ResponseEntity<> (flightService.actualizar(Id, flightDTO), HttpStatus.OK);
+
+    }
+
     @PostMapping("/flight-reservation/new")
     public ResponseEntity<?> reserveFlight(@RequestBody @Valid FlightReservationRequestDTO request) {
         //FlightReservationResponseDTO response = flightReservationService.reserveFlight(request);

@@ -1,23 +1,17 @@
 {
 	"info": {
-		"_postman_id": "da015ffa-6449-4392-ba7d-5b70b0dc4f7b",
+		"_postman_id": "cd50e9d4-31bc-4ed3-b32c-2bf667972fe3",
 		"name": "SPRINT-3",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "34147659"
+		"_exporter_id": "14105648",
+		"_collection_link": "https://adpsancorsalud.postman.co/workspace/Capacitacion~4e21afef-b554-4a50-a068-600549a9a6cd/collection/14105648-cd50e9d4-31bc-4ed3-b32c-2bf667972fe3?action=share&source=collection_link&creator=14105648"
 	},
 	"item": [
 		{
 			"name": "Login Copy",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmbGF6emFyb25pIiwiaWF0IjoxNzE5OTQ3MDA3LCJleHAiOjE3MTk5NDg4MDd9.CnS5aHJRjFqe1labg71cnIMQ3rmgRDRhvSCle0C5GnI",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [],
@@ -1938,6 +1932,349 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"description\": \"Tarjeta de débito: Se ha ingresado una cantidad de cuotas diferente a 1\",\n    \"status\": 400\n}"
+				}
+			]
+		},
+		{
+			"name": "US0003 - INCOME-DAY",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmbGF6emFyb25pIiwiaWF0IjoxNzIwNjk5NTIwLCJleHAiOjE3MjA3MDEzMjB9.O838p4zWtxBijxDVL2DeTmJLUAdvoKO84X8fdA6CG5c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/income?date=20-03-2025",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"income"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "20-03-2025"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "FECHA INVALIDA",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/income?date=20/03/2025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"income"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "20/03/2025"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 11 Jul 2024 00:57:11 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "Fecha invalida. Formato : dd-MM-yyyy."
+				}
+			]
+		},
+		{
+			"name": "US0003 - INCOME-MONTH",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmbGF6emFyb25pIiwiaWF0IjoxNzIwNzAyNTk2LCJleHAiOjE3MjA3MDQzOTZ9.SDm-Op3LsW_aWOF0hw8TY2yoKWdDyBh58tLqrbsWi3Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/incomeMonth?month=3&year=2025",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"incomeMonth"
+					],
+					"query": [
+						{
+							"key": "month",
+							"value": "3"
+						},
+						{
+							"key": "year",
+							"value": "2025"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "VALIDA MES",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/incomeMonth?month=13&year=2025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"incomeMonth"
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "13"
+								},
+								{
+									"key": "year",
+									"value": "2025"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 11 Jul 2024 01:48:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Se encontraron los siguientes errores en las validaciones en el PathVariable y RequestParam \",\n    \"messages_list\": [\n        \"El mes debe estar entre 1 y 12\"\n    ]\n}"
+				},
+				{
+					"name": "VALIDA AÑO",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/incomeMonth?month=12&year=-1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"incomeMonth"
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "12"
+								},
+								{
+									"key": "year",
+									"value": "-1"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 11 Jul 2024 01:49:14 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Se encontraron los siguientes errores en las validaciones en el PathVariable y RequestParam \",\n    \"messages_list\": [\n        \"El año debe ser mayor o igual a 1900\"\n    ]\n}"
 				}
 			]
 		}
