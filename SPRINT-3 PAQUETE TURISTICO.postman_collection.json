@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "1b7f57ea-81e3-49f2-a0c7-289e3269f3a1",
+		"name": "PAQUETE TURISTICO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34147659"
+	},
+	"item": [
+		{
+			"name": "alta de paquete turistico",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"package_number\": 5,\r\n    \"name\": \"Paquete 1\",\r\n    \"creation_date\": \"10-02-2027\",\r\n    \"client_id\": 1,\r\n    \"bookings_or_reservations\": {\r\n        \"flight_reservation\": 1,\r\n        \"booking\": 1\r\n    }\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/touristicpackage/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"touristicpackage",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete paquete turistico",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/touristicpackage/delete?packageNumber=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"touristicpackage",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "packageNumber",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listar paquetes turisticos",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/touristicpackage/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"touristicpackage",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editar paquete turistico",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Paquete 1\",\r\n    \"package_number\": 1,\r\n    \"creation_date\": \"10-02-2027\",\r\n    \"client_id\": 1,\r\n    \"bookings_or_reservations\": {\r\n        \"flight_reservation\": 1,\r\n        \"booking\": 1\r\n    }\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/touristicpackage/edit?packageNumber=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"touristicpackage",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "packageNumber",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
