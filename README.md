@@ -242,6 +242,8 @@ Informe de Desglose por Producto o Servicio: Detalla las ventas generadas por ca
 permitiendo analizar la rentabilidad individual de cada línea de negocio.
 
 ## Franco:
+Informe de Hoteles mas solicitados para permitir a la empresa identificar posibles mejoras o promociones a ofrecer a los clientes.
+
 ## Manuel:
 ## Jorgelina:
 
