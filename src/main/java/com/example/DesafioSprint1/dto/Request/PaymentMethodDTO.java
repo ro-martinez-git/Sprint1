@@ -17,7 +17,7 @@ public class PaymentMethodDTO {
         private String  type;
         @JsonProperty("number_card")
         private String  numberCard;
-        @Positive(message = "La catidad de cuotas debe se al menos 1.")
+        @Positive(message = "La cantidad de cuotas debe ser al menos 1.")
         private Integer dues;
 
 

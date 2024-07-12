@@ -1,0 +1,2316 @@
+{
+	"info": {
+		"_postman_id": "da015ffa-6449-4392-ba7d-5b70b0dc4f7b",
+		"name": "SPRINT-3 HOTELES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34147659"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"flazzaroni\",\r\n    \"password\": \"masluz\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"username\" : \"flazzaroni2\",\r\n      \"password\": \"masluz\",\r\n      \"firstName\": \"Franco\",\r\n      \"lastName\":\"Lazzaroni\"      \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US0001 - LISTAR TODOS LOS HOTELES",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotels",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotels"
+					],
+					"query": [
+						{
+							"key": "date_from",
+							"value": "10-02-2025",
+							"disabled": true
+						},
+						{
+							"key": "date_to",
+							"value": "20-03-2025",
+							"disabled": true
+						},
+						{
+							"key": "destination",
+							"value": "Puerto Iguazú",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US0002 - LISTAR HOTELES DISPONIBLES POR DESTINO Y FECHA",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotels?date_from=10-02-2025&date_to=23-03-2025&destination=Puerto Iguazú",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotels"
+					],
+					"query": [
+						{
+							"key": "date_from",
+							"value": "10-02-2025"
+						},
+						{
+							"key": "date_to",
+							"value": "23-03-2025"
+						},
+						{
+							"key": "destination",
+							"value": "Puerto Iguazú"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "US2 - Valida Fechas",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotels?date_from=10-02-2026&date_to=23-03-2025&destination=Puerto Iguazú",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotels"
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "10-02-2026"
+								},
+								{
+									"key": "date_to",
+									"value": "23-03-2025"
+								},
+								{
+									"key": "destination",
+									"value": "Puerto Iguazú"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Jun 2024 16:39:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"La fecha de inicio debe ser anterior a la fecha de fin\",\n    \"status\": 400\n}"
+				}
+			]
+		},
+		{
+			"name": "US0003 - REALIZAR RESERVA HOTEL",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\" : \"flazzaroni\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotel-bookings",
+						"new"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Valida Fecha",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2027\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 15:50:33 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"La fecha de entrada debe ser menor a la de salida\",\n    \"status\": 400\n}"
+				},
+				{
+					"name": "Valida Destino",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 15:51:44 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Se encontraron los siguientes errores en las validaciones: @Valid del DTO\",\n    \"messages_list\": [\n        \"El destino elegido no existe\"\n    ]\n}"
+				},
+				{
+					"name": "Valida Numero de Personas",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": \"z\",\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 15:52:30 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Solo se aceptan valores numéricos\",\n    \"status\": 400\n}"
+				},
+				{
+					"name": "Valida Cantidad vs Habitacion",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"SIMPLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 15:53:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"El tipo de habitación seleccionada no coincide con la cantidad de personas que se alojarán en ella.\",\n    \"status\": 400\n}"
+				},
+				{
+					"name": "Valida Email",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez-gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez-gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 15:54:22 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Se encontraron los siguientes errores en las validaciones: @Valid del DTO\",\n    \"messages_list\": [\n        \"Por favor ingrese un e-mail válido\",\n        \"Por favor ingrese un e-mail válido\"\n    ]\n}"
+				},
+				{
+					"name": "Valida Cuotas Pago Debito",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"DEBIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 2\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 15:55:06 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Tarjeta de débito: Se ha ingresado una cantidad de cuotas diferente a 1\",\n    \"status\": 400\n}"
+				},
+				{
+					"name": "US0003 - REALIZAR RESERVA HOTEL",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"flazzaroni\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"10-03-2025\",\r\n        \"origin\" : \"Tucumán\",\r\n        \"destination\" : \"Medellín\",\r\n        \"hotel_code\": \"CP-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"juan\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"juanopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 11:33:03 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user_name\": \"flazzaroni\",\n    \"amount\": 358400,\n    \"interest\": 10,\n    \"total\": 394240,\n    \"booking\": {\n        \"destination\": \"Medellín\",\n        \"people_amount\": 2,\n        \"date_from\": \"10-02-2025\",\n        \"date_to\": \"10-03-2025\",\n        \"hotel_code\": \"CP-0002\",\n        \"room_type\": \"DOBLE\",\n        \"people\": [\n            {\n                \"dni\": 87654321,\n                \"name\": \"Maria\",\n                \"email\": \"marialopez@gmail.com\",\n                \"last_name\": \"Lopez\",\n                \"birth_date\": \"01-05-1985\"\n            },\n            {\n                \"dni\": 87654321,\n                \"name\": \"juan\",\n                \"email\": \"juanopez@gmail.com\",\n                \"last_name\": \"Lopez\",\n                \"birth_date\": \"01-05-1985\"\n            }\n        ],\n        \"payment_method\": {\n            \"type\": \"CREDIT\",\n            \"dues\": 6,\n            \"number_card\": \"1234-1234-1234-1234\"\n        }\n    },\n    \"status\": {\n        \"message\": \"El proceso termino satisfactoriamente\",\n        \"code\": 201\n    }\n}"
+				},
+				{
+					"name": "US0003 - REALIZAR RESERVA HOTEL",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"flazzaroni\",\r\n    \"booking\" : {\r\n        \"date_from\": \"12-02-2025\",\r\n        \"date_to\": \"17-04-2025\",\r\n        \"origin\" : \"Tucumán\",\r\n        \"destination\" : \"Buenos Aires\",\r\n        \"hotel_code\": \"BH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"juan\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"juanopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 11:58:50 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user_name\": \"flazzaroni\",\n    \"amount\": 921600,\n    \"interest\": 10,\n    \"total\": 1013760,\n    \"booking\": {\n        \"destination\": \"Buenos Aires\",\n        \"people_amount\": 2,\n        \"date_from\": \"12-02-2025\",\n        \"date_to\": \"17-04-2025\",\n        \"hotel_code\": \"BH-0002\",\n        \"room_type\": \"DOBLE\",\n        \"people\": [\n            {\n                \"dni\": 87654321,\n                \"name\": \"Maria\",\n                \"email\": \"marialopez@gmail.com\",\n                \"last_name\": \"Lopez\",\n                \"birth_date\": \"01-05-1985\"\n            },\n            {\n                \"dni\": 87654321,\n                \"name\": \"juan\",\n                \"email\": \"juanopez@gmail.com\",\n                \"last_name\": \"Lopez\",\n                \"birth_date\": \"01-05-1985\"\n            }\n        ],\n        \"payment_method\": {\n            \"type\": \"CREDIT\",\n            \"dues\": 6,\n            \"number_card\": \"1234-1234-1234-1234\"\n        }\n    },\n    \"status\": {\n        \"message\": \"El proceso termino satisfactoriamente\",\n        \"code\": 201\n    }\n}"
+				},
+				{
+					"name": "US0003 - REALIZAR RESERVA HOTEL",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"flazzaroni\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"19-03-2025\",\r\n        \"origin\" : \"Tucumán\",\r\n        \"destination\" : \"Buenos Aires\",\r\n        \"hotel_code\": \"SE-0001\",\r\n        \"people_amount\": 1,\r\n        \"room_type\": \"Single\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 11 Jul 2024 20:43:24 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user_name\": \"flazzaroni\",\n    \"amount\": 144300,\n    \"interest\": 10,\n    \"total\": 158730,\n    \"booking\": {\n        \"destination\": \"Buenos Aires\",\n        \"people_amount\": 1,\n        \"date_from\": \"10-02-2025\",\n        \"date_to\": \"19-03-2025\",\n        \"hotel_code\": \"SE-0001\",\n        \"room_type\": \"Single\",\n        \"people\": [\n            {\n                \"dni\": 87654321,\n                \"name\": \"Maria\",\n                \"email\": \"marialopez@gmail.com\",\n                \"last_name\": \"Lopez\",\n                \"birth_date\": \"01-05-1985\"\n            }\n        ],\n        \"payment_method\": {\n            \"type\": \"CREDIT\",\n            \"dues\": 6,\n            \"number_card\": \"1234-1234-1234-1234\"\n        }\n    },\n    \"status\": {\n        \"message\": \"El proceso termino satisfactoriamente\",\n        \"code\": 201\n    }\n}"
+				},
+				{
+					"name": "US0003 - REALIZAR RESERVA HOTEL",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"plopez\",\r\n    \"booking\" : {\r\n        \"date_from\": \"23-01-2025\",\r\n        \"date_to\": \"15-10-2025\",\r\n        \"destination\" : \"Bogotá\",\r\n        \"hotel_code\": \"SE-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 11:35:08 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user_name\": \"plopez\",\n    \"amount\": 3095200,\n    \"interest\": 10,\n    \"total\": 3404720,\n    \"booking\": {\n        \"destination\": \"Bogotá\",\n        \"people_amount\": 2,\n        \"date_from\": \"23-01-2025\",\n        \"date_to\": \"15-10-2025\",\n        \"hotel_code\": \"SE-0002\",\n        \"room_type\": \"DOBLE\",\n        \"people\": [\n            {\n                \"dni\": 12345678,\n                \"name\": \"Juan\",\n                \"email\": \"juanperez@gmail.com\",\n                \"last_name\": \"Perez\",\n                \"birth_date\": \"10-11-1982\"\n            },\n            {\n                \"dni\": 87654321,\n                \"name\": \"Maria\",\n                \"email\": \"marialopez@gmail.com\",\n                \"last_name\": \"Lopez\",\n                \"birth_date\": \"01-05-1985\"\n            }\n        ],\n        \"payment_method\": {\n            \"type\": \"CREDIT\",\n            \"dues\": 6,\n            \"number_card\": \"1234-1234-1234-1234\"\n        }\n    },\n    \"status\": {\n        \"message\": \"El proceso termino satisfactoriamente\",\n        \"code\": 201\n    }\n}"
+				},
+				{
+					"name": "US0003 - REALIZAR RESERVA HOTEL",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"jperez\",\r\n    \"booking\" : {\r\n        \"date_from\": \"01-02-2025\",\r\n        \"date_to\": \"19-02-2025\",\r\n        \"origin\" : \"Tucumán\",\r\n        \"destination\" : \"Bogotá\",\r\n        \"hotel_code\": \"SH-0001\",\r\n        \"people_amount\": 1,\r\n        \"room_type\": \"Single\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 11:39:58 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user_name\": \"jperez\",\n    \"amount\": 74700,\n    \"interest\": 10,\n    \"total\": 82170,\n    \"booking\": {\n        \"destination\": \"Bogotá\",\n        \"people_amount\": 1,\n        \"date_from\": \"01-02-2025\",\n        \"date_to\": \"19-02-2025\",\n        \"hotel_code\": \"SH-0001\",\n        \"room_type\": \"Single\",\n        \"people\": [\n            {\n                \"dni\": 87654321,\n                \"name\": \"Maria\",\n                \"email\": \"marialopez@gmail.com\",\n                \"last_name\": \"Lopez\",\n                \"birth_date\": \"01-05-1985\"\n            }\n        ],\n        \"payment_method\": {\n            \"type\": \"CREDIT\",\n            \"dues\": 6,\n            \"number_card\": \"1234-1234-1234-1234\"\n        }\n    },\n    \"status\": {\n        \"message\": \"El proceso termino satisfactoriamente\",\n        \"code\": 201\n    }\n}"
+				},
+				{
+					"name": "US0003 - REALIZAR RESERVA HOTEL",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"plopez\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"19-03-2025\",\r\n        \"destination\" : \"Buenos Aires\",\r\n        \"hotel_code\": \"HB-0001\",\r\n        \"people_amount\": 1,\r\n        \"room_type\": \"Single\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotel-bookings/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotel-bookings",
+								"new"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 12:28:05 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user_name\": \"plopez\",\n    \"amount\": 201095,\n    \"interest\": 10,\n    \"total\": 221204.5,\n    \"booking\": {\n        \"destination\": \"Buenos Aires\",\n        \"people_amount\": 1,\n        \"date_from\": \"10-02-2025\",\n        \"date_to\": \"19-03-2025\",\n        \"hotel_code\": \"HB-0001\",\n        \"room_type\": \"Single\",\n        \"people\": [\n            {\n                \"dni\": 12345678,\n                \"name\": \"Juan\",\n                \"email\": \"juanperez@gmail.com\",\n                \"last_name\": \"Perez\",\n                \"birth_date\": \"10-11-1982\"\n            }\n        ],\n        \"payment_method\": {\n            \"type\": \"CREDIT\",\n            \"dues\": 6,\n            \"number_card\": \"1234-1234-1234-1234\"\n        }\n    },\n    \"status\": {\n        \"message\": \"El proceso termino satisfactoriamente\",\n        \"code\": 201\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "TOP 3 MÁS RESERVAS",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/clients/top-3?year=2024",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"clients",
+						"top-3"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2024"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US0003 - EDITAR RESERVA HOTEL",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\" : \"flazzaroni\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotel-bookings/edit?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotel-bookings",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "US3-Valida Fechas",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2027\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"booking"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Jun 2024 16:29:29 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"La fecha de entrada debe ser menor a la de salida\",\n    \"status\": 400\n}"
+				},
+				{
+					"name": "US3 - Valida_Destino",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"booking"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Jun 2024 16:31:46 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Se encontraron los siguientes errores en las validaciones: @Valid del DTO\",\n    \"messages_list\": [\n        \"El destino elegido no existe\"\n    ]\n}"
+				},
+				{
+					"name": "US3 - Valida Personas Numerico",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": \"z\",\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"booking"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Jun 2024 16:33:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Solo se aceptan valores numéricos\",\n    \"status\": 400\n}"
+				},
+				{
+					"name": "US3 - Valida cantidad vs tipo habitacion",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"SIMPLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"booking"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Jun 2024 16:36:01 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"El tipo de habitación seleccionada no coincide con la cantidad de personas que se alojarán en ella.\",\n    \"status\": 400\n}"
+				},
+				{
+					"name": "US3 - Valida Email",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez-gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez-gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"CREDIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 6\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"booking"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Jun 2024 16:37:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Se encontraron los siguientes errores en las validaciones: @Valid del DTO\",\n    \"messages_list\": [\n        \"Por favor ingrese un e-mail válido\",\n        \"Por favor ingrese un e-mail válido\"\n    ]\n}"
+				},
+				{
+					"name": "US3 - Valida cuotas pago debito",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"juanperez@gmail.com\",\r\n    \"booking\" : {\r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_code\": \"CH-0002\",\r\n        \"people_amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"people\" :[\r\n            {\r\n                \"dni\": \"12345678\",\r\n                \"name\": \"Juan\",\r\n                \"last_name\": \"Perez\",\r\n                \"birth_date\": \"10-11-1982\",\r\n                \"email\": \"juanperez@gmail.com\"\r\n            },\r\n            {\r\n                \"dni\": \"87654321\",\r\n                \"name\": \"Maria\",\r\n                \"last_name\": \"Lopez\",\r\n                \"birth_date\": \"01-05-1985\",\r\n                \"email\": \"marialopez@gmail.com\"\r\n            }\r\n        ],\r\n        \"payment_method\":  //only cards\r\n        {\r\n            \"type\": \"DEBIT\",\r\n            \"number_card\": \"1234-1234-1234-1234\",\r\n            \"dues\": 2\r\n        }\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"booking"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Jun 2024 16:38:43 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Tarjeta de débito: Se ha ingresado una cantidad de cuotas diferente a 1\",\n    \"status\": 400\n}"
+				}
+			]
+		},
+		{
+			"name": "US0002 - LISTAR RESERVAS DE HOTELES",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotel-bookings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotel-bookings",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "US2 - Valida Fechas",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotels?date_from=10-02-2026&date_to=23-03-2025&destination=Puerto Iguazú",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotels"
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "10-02-2026"
+								},
+								{
+									"key": "date_to",
+									"value": "23-03-2025"
+								},
+								{
+									"key": "destination",
+									"value": "Puerto Iguazú"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Jun 2024 16:39:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"La fecha de inicio debe ser anterior a la fecha de fin\",\n    \"status\": 400\n}"
+				}
+			]
+		},
+		{
+			"name": "US0002 -BORRAR RESERVAS DE HOTELE",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotel-bookings/delete?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotel-bookings",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "US2 - Valida Fechas",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotels?date_from=10-02-2026&date_to=23-03-2025&destination=Puerto Iguazú",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotels"
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "10-02-2026"
+								},
+								{
+									"key": "date_to",
+									"value": "23-03-2025"
+								},
+								{
+									"key": "destination",
+									"value": "Puerto Iguazú"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Jun 2024 16:39:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"La fecha de inicio debe ser anterior a la fecha de fin\",\n    \"status\": 400\n}"
+				}
+			]
+		},
+		{
+			"name": "CRUD- ALTA DE HOTEL",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_name\": \"HOTEL NAME\",\r\n        \"hotel_code\": \"POTEL1\",\r\n        \"amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"reserved\": \"NO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotels/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotels",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CRUD-HOTEL - BUSCAR HOTEL",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/searchHotelCode?hotel_code=CH-0003",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"searchHotelCode"
+					],
+					"query": [
+						{
+							"key": "hotel_code",
+							"value": "CH-0003"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "POSITIVO",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/searchHotelCode?hotel_code=CH-0003",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"searchHotelCode"
+							],
+							"query": [
+								{
+									"key": "hotel_code",
+									"value": "CH-0003"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 20 May 2024 17:19:27 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"destination\": \"Puerto Iguazú\",\n    \"reserved\": \"NO\",\n    \"hotel_name\": \"Cataratas Hotel 2\",\n    \"room_type\": \"Triple\",\n    \"date_from\": \"10-02-2025\",\n    \"date_to\": \"23-03-2025\"\n}"
+				},
+				{
+					"name": "NEGATIVO",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/searchHotelCode?hotel_code=CH-00033",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"searchHotelCode"
+							],
+							"query": [
+								{
+									"key": "hotel_code",
+									"value": "CH-00033"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 20 May 2024 17:31:17 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"No existen hoteles con el codigo administrado\",\n    \"status\": 400\n}"
+				}
+			]
+		},
+		{
+			"name": "CRUD-HOTEL - BORRAR HOTEL",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotels/delete?hotel_code=CH-0003",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotels",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "hotel_code",
+							"value": "CH-0003"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "POSITIVO",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotels/delete?hotel_code=CH-0003",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "hotel_code",
+									"value": "CH-0003"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 16:07:39 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"mensaje\": \"Hotel eliminado con éxito\"\n}"
+				},
+				{
+					"name": "NEGATIVO",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hotels/delete?hotel_code=CH-00033",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hotels",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "hotel_code",
+									"value": "CH-00033"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jul 2024 16:08:51 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"No existen hoteles con el codigo administrado\",\n    \"status\": 400\n}"
+				}
+			]
+		},
+		{
+			"name": "CRUD-HOTEL - ACTUALIZAR HOTEL",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \r\n        \"date_from\": \"10-02-2025\",\r\n        \"date_to\": \"20-03-2025\",\r\n        \"destination\" : \"Cataratas Hotel\",\r\n        \"hotel_name\": \"HOTEL NAME CAMBIADO\",\r\n        \"hotel_code\": \"POTEL1\",\r\n        \"amount\": 2,\r\n        \"room_type\": \"DOBLE\",\r\n        \"reserved\": \"NO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotels/edit?id=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotels",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

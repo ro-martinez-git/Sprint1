@@ -115,7 +115,7 @@ class BookingServiceImplTest {
 
     @Test
     @DisplayName("Hacer reserva de Hotel OK")
-    void makeBookingTestOK() {
+    void makeBookingTestOK() throws Exception {
 
         Mockito.when(hotelRepository.findAll()).thenReturn(List.of(hotel1));
         BookingResponseDTO obtenido = bookingService.makeBooking(bookinRequestDTO1);
