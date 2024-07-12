@@ -4,9 +4,7 @@ package com.example.DesafioSprint1.service;
 import com.example.DesafioSprint1.dto.HotelDTO;
 import com.example.DesafioSprint1.dto.Request.HotelRequestDTO;
 import com.example.DesafioSprint1.dto.RespuestaDTO;
-import com.example.DesafioSprint1.exceptions.DateRangeFrom;
-import com.example.DesafioSprint1.exceptions.HotelNotFoundException;
-import com.example.DesafioSprint1.exceptions.ReservationInexistentException;
+import com.example.DesafioSprint1.exceptions.*;
 import com.example.DesafioSprint1.model.Hotel;
 import com.example.DesafioSprint1.repository.IHotelRepository;
 import org.modelmapper.ModelMapper;
@@ -66,6 +64,17 @@ ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public RespuestaDTO save(HotelRequestDTO requestDTO ) {
+        List<Hotel> hotelList = hotelRepository.findAll();
+
+        List<Hotel> newHotelList = hotelList.stream()
+                .filter(hotel -> hotel.getHotelCode().equals(requestDTO.getHotelCode()))
+                .filter(hotel -> hotel.getRoomType().equals(requestDTO.getRoomType()))
+               .toList();
+
+        if (!newHotelList.isEmpty()) {
+            throw new HotelExistException();
+        }
+
         Hotel hotel = modelMapper.map(requestDTO, Hotel.class);
         hotelRepository.save(hotel);
         return new RespuestaDTO("Hotel creado con éxito");
@@ -85,15 +94,18 @@ ModelMapper modelMapper = new ModelMapper();
     }
 
     @Override
-    public HotelRequestDTO actualizarHotel(HotelRequestDTO hotelRequestDTO) {
-        Hotel hotelRepo = hotelRepository.findByHotelCode(hotelRequestDTO.getHotelCode());
-        if(hotelRepo == null){
+    public RespuestaDTO actualizarHotel(Long id, HotelRequestDTO hotelRequestDTO) {
+        Optional<Hotel> hotelRepo = hotelRepository.findById(id);
+        if (hotelRepo.isPresent()) {
+            Hotel hotelModificado = modelMapper.map(hotelRequestDTO, Hotel.class);
+            Hotel hotel = hotelRepo.get();
+            hotelModificado.setId(hotel.getId());
+            hotel = hotelModificado;
+            hotelRepository.save(hotel);
+
+            return new RespuestaDTO("Hotel modificado con exito");
+        } else {
             throw new HotelNotFoundException();
         }
-        Hotel hotel = modelMapper.map(hotelRequestDTO, Hotel.class);
-        hotelRepository.save(hotel);
-        return hotelRequestDTO ;
     }
-
-
 }

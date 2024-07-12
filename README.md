@@ -194,24 +194,55 @@ POST /api/v1/flight-reservation
 ![img_10.png](img_10.png)
 
 - Link https://docs.google.com/document/d/1t7YWcYzNlXh3Urk2_wbdr3cAY-EGVvGghXEFxDlQkyI/edit
+- Requerimiento 1: https://docs.google.com/document/d/1w4xsiNMhRI9ycyRAq7xwJV4u_QPuKhLgdO5yOGimcaQ/edit#heading=h.is12a5anpqlv
+- Requerimiento 2: https://docs.google.com/document/d/1NcndfbtoZBbhwJ8GRwGqAfCj5CAAS9sOHa9WlVajJRU/edit#heading=h.is12a5anpqlv
+- Requerimiento 3: https://docs.google.com/document/d/1DtnRXdQIBauUYS9zNhl5t9BYYGPBXuzi9H2QBUhpD1o/edit#heading=h.is12a5anpqlv
+- Requerimiento 4: https://docs.google.com/document/d/1eYpEQ19AXVFQFwZ2zErf-F1LkHvbu44pQ_rHsn1bEhc/edit#heading=h.is12a5anpqlv
 
+## REQUERIMIENTO N° 1 : Implementación de una base de datos relacional:
+Para el desarrollo de la misma se trabajo en grupo completo,
+se implemento JPA para mapear los objetos y obtener las entidades del negocio como entidades relacionales.
+Se realizaron las configuracion de conexion a la base de datos con todas sus dependencias.
+Se realizaron las relaciones correspondientes entre las tablas.
 
 Agradecemos la colaboracion de:
 
 Rocío Martínez: Creación de estructura y dependencias,Creación de US 0002, Obtener un listado de todos los hoteles disponibles en un determinado rango de fechas y según el destino seleccionado.
 Creacion de US0001 Y US0002 con Validaciones y test unitarios y de integracion.
+Creacion del crud de Reservas de Vuelos con entidades.
+Creacion del Requerimiento 4 "Top 3 de Clientes" con mas reservas de hoteles.
 
 Franco Lazzaroni: Creación de US0001: Obtener un listado de todos los hoteles regisros,US 0003: Realizar una reserva de un hotel.
 Creacion de US0003 Y US0005 con Validaciones, test unitarios y de integracion.
+Creacion del Requerimiento 3 "Implementacion de Sistema de Caja" con calculos de ingresos brutos y 
+calculos de ingresos por mes y año particular.
+Creacion del Requerimiento 4 "Top 3 de Clientes" con mas reservas de hoteles.
 
 Alejandro Seravalle: Creación de Crud, US 0004 Obtener un listado de todos los vuelos registrados.
 Creacion de US0001 Y US0002 con Validaciones, test unitarios y de integracion.
 Creacion de Test unitario del CRUD de Hoteles.
+Creacion del CRUD de Reservas de hoteles con entidades.
 
 Manuel Efrain Muract Correa: Creación de US 0005,Obtener un listado de todos los vuelos disponibles.
 Creacion de US0006 con Validaciones, test unitarios y de integracion.
+Creacion del Requerimiento 2 "Creacion de Paquetes Turisticas" y su CRUD.
 
 Jorgelina Finello:Creación de US 0005, Obtener un listado de todos los vuelos disponibles.
 Creacion de US0005 con Validaciones, test unitarios y de integracion.
+Creacion del Requerimiento 2 "Creacion de Paquetes Turisticas" y su CRUD.
+
+## Mejores para desarrollar:
+
+## Alejandro: 
+Informe Mensual de Métodos de Pago - En base a esto identificar tendencias y oportunidades para 
+mejorar las estrategias de marketing y ventas.
+
+## Rocio:
+Informe de Desglose por Producto o Servicio: Detalla las ventas generadas por cada producto o servicio ofrecido por la empresa, 
+permitiendo analizar la rentabilidad individual de cada línea de negocio.
+
+## Franco:
+## Manuel:
+## Jorgelina:
 
 Muchas Gracias!
