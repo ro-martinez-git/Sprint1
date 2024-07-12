@@ -3,6 +3,18 @@
 INSERT INTO clientes (username,password, firstname,lastname,role)
 VALUES ('flazzaroni', '$2a$10$3/5ukbr7EaALD6QVn7h5r..NUIABND14nw6lPOmketmj/d8NMrLFu', 'Franco', 'Lazzaroni', 'EMPLEADO');
 
+-- Insertar cliente 2
+INSERT INTO clientes (username, password, firstname, lastname, role)
+VALUES ('jperez', '$2a$10$abc123def456...', 'Juan', 'Pérez', 'CLIENTE');
+
+-- Insertar cliente 3
+INSERT INTO clientes (username, password, firstname, lastname, role)
+VALUES ('mgarcia', '$2a$10$xyz789uvw123', 'María', 'García', 'CLIENTE');
+
+-- Insertar cliente 4
+INSERT INTO clientes (username, password, firstname, lastname, role)
+VALUES ('plopez', '$2a$10$mno456pqr789', 'Pedro', 'López', 'CLIENTE');
+
 -- Inserts de las personas
 INSERT INTO people (dni, name, last_name, birth_date, email) VALUES
 (12345678, 'Juan', 'Perez', '1982-11-10', 'juanperez@gmail.com'),

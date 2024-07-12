@@ -38,6 +38,7 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
     IPaymentMethodRepository paymentMethodRepository;
 
     ModelMapper modelMapper = new ModelMapper();
+
     @Override
     public FlightReservationResponseDTO reserveFlight(FlightReservationRequestDTO request) {
 
@@ -74,21 +75,6 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
             throw new FlightBookingAlreadyRegisteredException();
         }
 
-            // calcular el precio base
-            double basePrice = flight.getAmount() * request.getFlightReservation().getSeats();
-            // calcular los intereses
-            double interest = this.calculateInterest(request.getFlightReservation().getPaymentMethod());
-            // calcular el monto total
-            double total = basePrice * interest / 100 + basePrice;
-
-            FlightReservationResponseDTO response = new FlightReservationResponseDTO();
-            response.setUserName(request.getUserName());
-            response.setAmount(basePrice);
-            response.setInterest(interest);
-            response.setTotal(total);
-            response.setFlightReservation(request.getFlightReservation());
-            response.setStatusDTO(new StatusDTO("La reserva finalizó satisfactoriamente", 201));
-
         // calcular el precio base
         double basePrice = flight.getAmount() * request.getFlightReservation().getSeats();
         // calcular los intereses
@@ -109,27 +95,29 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
         Cliente cliente = clienteRepository.findByUsername(request.getUserName()).get();
         flightReservation.setCliente(cliente);
         flightReservation.setFlight(flightRepository.findByFlightNumber(request.getFlightReservation()
-                .getFlightNumber()).get().stream()
+                        .getFlightNumber()).get().stream()
                 .filter(f -> f.getSeatType().toUpperCase()
-                .equals(request.getFlightReservation().getSeatType().toUpperCase())).toList().get(0));
+                        .equals(request.getFlightReservation().getSeatType().toUpperCase())).toList().get(0));
         flightReservation.setPaymentMethod(
                 modelMapper.map(request.getFlightReservation().getPaymentMethod(), PaymentMethod.class)
         );
-        List<People> peopleList =  new ArrayList<>();
-        for( PeopleDTO peopleDTO : request.getFlightReservation().getPeople())
-        {   People people = modelMapper.map(peopleDTO, People.class);
+        List<People> peopleList = new ArrayList<>();
+        for (PeopleDTO peopleDTO : request.getFlightReservation().getPeople()) {
+            People people = modelMapper.map(peopleDTO, People.class);
             peopleList.add(people);
         }
         List<People> savedPeopleList = new ArrayList<>();
         for (People person : peopleList) {
             Optional<People> existingPerson = peopleRepository.findByDni(person.getDni());
-            if (existingPerson.isPresent()) {                savedPeopleList.add(existingPerson.get());
+            if (existingPerson.isPresent()) {
+                savedPeopleList.add(existingPerson.get());
             } else {
                 People savedPerson = peopleRepository.save(person);
                 savedPeopleList.add(savedPerson);
             }
 
-        }         flightReservation.setPeopleList(savedPeopleList);
+        }
+        flightReservation.setPeopleList(savedPeopleList);
         flightReservation.getFlight().setReserved("SI");
         flightReservation.setAmount(response.getAmount());
         flightReservation.getFlight().setFlightReservation(flightReservation);
@@ -137,8 +125,8 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
         flightReservationRepository.save(flightReservation);
 
 
-            return response;
-        }
+        return response;
+    }
 
     @Override
     public FlightReservationResponseDTO saveFlightReservation(FlightReservationRequestDTO flightReservationRequestDTO, Long id) {
@@ -167,13 +155,13 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
 
         FlightReservationResponseDTO flightReservationResponseDTO = new FlightReservationResponseDTO();
         flightReservationResponseDTO.setUserName(flightReservation.getCliente().getUsername());
-        flightReservationResponseDTO.setFlightReservation(modelMapper.map(flightReservation,FlightReservationDTO.class));
-        flightReservationResponseDTO.getFlightReservation().setPaymentMethod(modelMapper.map(flightReservation.getPaymentMethod(),PaymentMethodDTO.class));
+        flightReservationResponseDTO.setFlightReservation(modelMapper.map(flightReservation, FlightReservationDTO.class));
+        flightReservationResponseDTO.getFlightReservation().setPaymentMethod(modelMapper.map(flightReservation.getPaymentMethod(), PaymentMethodDTO.class));
 
         Long days = flightReservationRequestDTO.getFlightReservation().getDateTo().toEpochDay() - flightReservationRequestDTO.getFlightReservation().getDateFrom().toEpochDay();
         flightReservationResponseDTO.setAmount(flightReservation.getFlight().getAmount() * flightReservationRequestDTO.getFlightReservation().getSeats());
         flightReservationResponseDTO.setInterest(calculateInterest(flightReservationRequestDTO.getFlightReservation().getPaymentMethod()));
-        flightReservationResponseDTO.setTotal(((flightReservationResponseDTO.getAmount() * flightReservationResponseDTO.getInterest() / 100) + flightReservationResponseDTO.getAmount() )    );
+        flightReservationResponseDTO.setTotal(((flightReservationResponseDTO.getAmount() * flightReservationResponseDTO.getInterest() / 100) + flightReservationResponseDTO.getAmount()));
         flightReservationResponseDTO.setStatusDTO(new StatusDTO("El proceso termino satisfactoriamente", 200));
 
         return flightReservationResponseDTO;
@@ -182,15 +170,15 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
     @Override
     public List<FlightReservationDTO> listaReservasFlight() {
         List<FlightReservation> flightReserved = flightReservationRepository.findAll();
-            if (flightReserved.isEmpty()) {
-                throw new NoBookingsFlightException();
-            }
+        if (flightReserved.isEmpty()) {
+            throw new NoBookingsFlightException();
+        }
         List<FlightReservationDTO> flightReservas = new ArrayList<FlightReservationDTO>();
-            for (FlightReservation flightReservation : flightReserved) {
-                FlightReservationDTO flightReservationDTO = modelMapper.map(flightReservation, FlightReservationDTO.class);
-                flightReservationDTO.setSeats(flightReservation.getPeopleList().size());
-                flightReservas.add(flightReservationDTO);
-            }
+        for (FlightReservation flightReservation : flightReserved) {
+            FlightReservationDTO flightReservationDTO = modelMapper.map(flightReservation, FlightReservationDTO.class);
+            flightReservationDTO.setSeats(flightReservation.getPeopleList().size());
+            flightReservas.add(flightReservationDTO);
+        }
 
         return flightReservas;
     }
@@ -199,47 +187,22 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
     public RespuestaDTO deleteFlightReservation(Long Id) {
         FlightReservation flightForDelete = flightReservationRepository.findById(Id).orElse(null);
 
-         if (flightForDelete == null) {
+        if (flightForDelete == null) {
             return new RespuestaDTO("No se encontro el Vuelo con el id proporcionado");
         }
 
-         Flight flight = flightForDelete.getFlight();
-         if (flight != null) {
-             flight.setReserved("NO");
-             flight.setFlightReservation(null);
-             flightRepository.save(flight);
-         }
+        Flight flight = flightForDelete.getFlight();
+        if (flight != null) {
+            flight.setReserved("NO");
+            flight.setFlightReservation(null);
+            flightRepository.save(flight);
+        }
 
         flightReservationRepository.delete(flightForDelete);
         return new RespuestaDTO("Reserva dada de baja con exito");
     }
 
-    public Boolean ValidatePaymentMethodAndDues (PaymentMethodDTO paymentMethodDTO)
-        {
-            if (paymentMethodDTO.getType().toUpperCase().equals("CREDIT")
-                    && paymentMethodDTO.getDues() >= 1
-            ) {
-                return true;
-            } else if (paymentMethodDTO.getType().toUpperCase().equals("DEBIT")
-                    && paymentMethodDTO.getDues() == 1) {
-                return true;
-            } else return false;
-        }
-        private double calculateInterest (PaymentMethodDTO paymentMethodDTO){
-
-            if (paymentMethodDTO.getType().toUpperCase().equals("DEBIT")) {
-                return 0.0;
-            } else if (paymentMethodDTO.getType().toUpperCase().equals("CREDIT")) {
-                if (paymentMethodDTO.getDues() > 1 && paymentMethodDTO.getDues() <= 3) {
-                    return 5.0;
-                } else if (paymentMethodDTO.getDues() > 3 && paymentMethodDTO.getDues() <= 6) {
-                    return 10.0;
-                }
-
-        return response;
-    }
-    public Boolean ValidatePaymentMethodAndDues (PaymentMethodDTO paymentMethodDTO)
-    {
+    public Boolean ValidatePaymentMethodAndDues(PaymentMethodDTO paymentMethodDTO) {
         if (paymentMethodDTO.getType().toUpperCase().equals("CREDIT")
                 && paymentMethodDTO.getDues() >= 1
         ) {
@@ -249,44 +212,40 @@ public class FlightReservationServiceImpl implements IFlightReservationService {
             return true;
         } else return false;
     }
-    private double calculateInterest (PaymentMethodDTO paymentMethodDTO){
 
-        if (paymentMethodDTO.getType().toUpperCase().equals("DEBIT")) {
-            return 0.0;
-        } else if (paymentMethodDTO.getType().toUpperCase().equals("CREDIT")) {
-            if (paymentMethodDTO.getDues() > 1 && paymentMethodDTO.getDues() <= 3) {
-                return 5.0;
-            } else if (paymentMethodDTO.getDues() > 3 && paymentMethodDTO.getDues() <= 6) {
-                return 10.0;
+        private double calculateInterest (PaymentMethodDTO paymentMethodDTO) {
 
+            if (paymentMethodDTO.getType().toUpperCase().equals("DEBIT")) {
+                return 0.0;
+            } else if (paymentMethodDTO.getType().toUpperCase().equals("CREDIT")) {
+                if (paymentMethodDTO.getDues() > 1 && paymentMethodDTO.getDues() <= 3) {
+                    return 5.0;
+                } else if (paymentMethodDTO.getDues() > 3 && paymentMethodDTO.getDues() <= 6) {
+                    return 10.0;
+
+                }
             }
+            return 15.0;  //Este seria el interes por mas cuotas que 6 (No definido en la Doc).
+
         }
-        return 15.0;  //Este seria el interes por mas cuotas que 6 (No definido en la Doc).
+            public Boolean validateBookingFlightExists(FlightReservationRequestDTO flightReservationRequestDTO){
+                List<FlightReservation> flightReservations = flightReservationRepository.findAll();
+                if (flightReservations.isEmpty()) {
+                    return false;
+                }
 
-    public Double CalculateBookingAmount(Long days , Double unitaryPrice, Integer peopleAmount)
-    {
-        Double amount = unitaryPrice * days * peopleAmount;
-        return amount;
+                FlightReservation flightReservation = flightReservations.stream()
+                        .filter(fr -> fr.getFlightNumber().equals(flightReservationRequestDTO.getFlightReservation().getFlightNumber()))
+                        .filter(fr -> fr.getOrigin().equals(flightReservationRequestDTO.getFlightReservation().getOrigin()))
+                        .filter(fr -> fr.getDestination().equals(flightReservationRequestDTO.getFlightReservation().getDestination()))
+                        .filter(fr -> fr.getDateFrom().equals(flightReservationRequestDTO.getFlightReservation().getDateFrom()))
+                        .filter(fr -> fr.getDateTo().equals(flightReservationRequestDTO.getFlightReservation().getDateTo()))
+                        .findFirst()
+                        .orElse(null);
 
-    }
+                return flightReservation != null;
+            }
 
-    public Boolean validateBookingFlightExists(FlightReservationRequestDTO flightReservationRequestDTO) {
-        List<FlightReservation> flightReservations = flightReservationRepository.findAll();
-        if (flightReservations.isEmpty()) {
-            return false;
-        }
-
-        FlightReservation flightReservation = flightReservations.stream()
-               .filter(fr -> fr.getFlightNumber().equals(flightReservationRequestDTO.getFlightReservation().getFlightNumber()))
-               .filter(fr -> fr.getOrigin().equals(flightReservationRequestDTO.getFlightReservation().getOrigin()))
-               .filter(fr -> fr.getDestination().equals(flightReservationRequestDTO.getFlightReservation().getDestination()))
-               .filter(fr -> fr.getDateFrom().equals(flightReservationRequestDTO.getFlightReservation().getDateFrom()))
-               .filter(fr -> fr.getDateTo().equals(flightReservationRequestDTO.getFlightReservation().getDateTo()))
-               .findFirst()
-               .orElse(null);
-
-        return flightReservation != null;
-    }
 
 
 }
