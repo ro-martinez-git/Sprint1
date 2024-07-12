@@ -142,7 +142,7 @@ public class BookingServiceImpl implements IBookingService{
         booking.setPaymentMethod(paymentMethod);
 
 
-        BookingResponseDTO bookingResponseDTO = new BookingResponseDTO()    ;
+        BookingResponseDTO bookingResponseDTO = new BookingResponseDTO();
         bookingResponseDTO.setUserName(booking.getCliente().getUsername());
         bookingResponseDTO.setBookingDTO(modelMapper.map(booking,BookingDTO.class));
         bookingResponseDTO.getBookingDTO().setPaymentMethodDTO(modelMapper.map(booking.getPaymentMethod(),PaymentMethodDTO.class));

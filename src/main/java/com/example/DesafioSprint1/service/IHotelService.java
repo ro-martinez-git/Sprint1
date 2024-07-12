@@ -14,7 +14,7 @@ public interface IHotelService {
     HotelDTO findByHotelCode(String hotelCode);
     RespuestaDTO save(HotelRequestDTO requestDTO);
     RespuestaDTO delete (String hotelCode);
-    HotelRequestDTO actualizarHotel(HotelRequestDTO hotelRequestDTO);
+    RespuestaDTO actualizarHotel(Long id, HotelRequestDTO hotelRequestDTO);
 
 
 }

@@ -72,7 +72,6 @@ public class FlightController {
     public ResponseEntity<?> actualizarVuelo(@RequestParam("Id") Long Id,
                                              @RequestBody FlightDTO flightDTO) {
         return new ResponseEntity<> (flightService.actualizar(Id, flightDTO), HttpStatus.OK);
-
     }
 
     @PostMapping("/flight-reservation/new")
@@ -80,6 +79,23 @@ public class FlightController {
         //FlightReservationResponseDTO response = flightReservationService.reserveFlight(request);
         return new ResponseEntity<>(flightReservationService.reserveFlight(request), HttpStatus.CREATED);
     }
+
+    @PutMapping("/flight-reservation/edit")
+    public ResponseEntity<?> actualizarReserva(@RequestParam("Id") Long Id,
+                                             @RequestBody FlightReservationRequestDTO flightReservationRequestDTO ) {
+        return new ResponseEntity<> (flightReservationService.saveFlightReservation(flightReservationRequestDTO, Id), HttpStatus.OK);
+    }
+
+    @GetMapping("/flight-reservations/")
+    public ResponseEntity<?> listaReservas() throws Exception {
+        return new ResponseEntity<>(flightReservationService.listaReservasFlight(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("flight-reservation/delete")
+    public ResponseEntity<?> deleteReservation(@RequestParam ("id") Long Id) {
+        return new ResponseEntity<>(flightReservationService.deleteFlightReservation(Id), HttpStatus.OK);
+    }
+
 
 
 
