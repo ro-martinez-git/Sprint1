@@ -93,12 +93,10 @@ public class HotelController {
     }
 
     @PutMapping("/hotels/edit")
-    public ResponseEntity<?> updateHotel(@RequestBody HotelRequestDTO hotelRequestDTO) {
-        return new ResponseEntity<>(hotelService.actualizarHotel(hotelRequestDTO), HttpStatus.OK);
+    public ResponseEntity<?> updateHotel(@RequestParam("id") Long id,
+                                         @RequestBody HotelRequestDTO hotelRequestDTO) {
+        return new ResponseEntity<>(hotelService.actualizarHotel(id, hotelRequestDTO), HttpStatus.OK);
     }
-
-
-
 
 }
 

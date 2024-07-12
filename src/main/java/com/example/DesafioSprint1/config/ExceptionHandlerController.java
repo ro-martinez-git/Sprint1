@@ -4,6 +4,7 @@ import com.example.DesafioSprint1.dto.ErrorDTO;
 import com.example.DesafioSprint1.dto.ExceptionDTO;
 import com.example.DesafioSprint1.exceptions.*;
 
+import com.example.DesafioSprint1.model.Hotel;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -39,11 +40,24 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(FlightBookingAlreadyRegisteredException.class)
+    public ResponseEntity<?> FlightBookingAlreadyRegisteredException(Exception e){
+        ErrorDTO error = new ErrorDTO("Ya existe una reserva con las mismas caracteristicas", 404);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(FlightExistException.class)
     public ResponseEntity<?> FlighExistException(Exception e){
         ErrorDTO error = new ErrorDTO("Este número de vuelo ya se encuentra registrado", 404);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(HotelExistException.class)
+    public ResponseEntity<?> HotelExistException(Exception e){
+        ErrorDTO error = new ErrorDTO("Este número de Hotel ya se encuentra registrado", 404);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(FlightNoExistException.class)
     public ResponseEntity<?> FlightNoExistException(Exception e){
         ErrorDTO error = new ErrorDTO("No hay vuelos para el ID ingresado", 404);
@@ -130,10 +144,19 @@ public class ExceptionHandlerController {
     }
 
 
+    @ExceptionHandler(NoBookingsFlightException.class)
+    public ResponseEntity<?> NoBookingsFlightException(Exception e){
+        ErrorDTO error = new ErrorDTO("No hay reservas de Vuelos registradas", 404);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+
+
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, DateTimeParseException.class})
     public ResponseEntity<String> handleDateParseException(Exception ex) {
         return new ResponseEntity<>("Fecha invalida. Formato valido : dd-MM-yyyy.", HttpStatus.BAD_REQUEST);
     }
+
 
 
     ////// VALIDACIONES //////
