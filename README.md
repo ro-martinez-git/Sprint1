@@ -245,6 +245,8 @@ permitiendo analizar la rentabilidad individual de cada línea de negocio.
 Informe de Hoteles mas solicitados para permitir a la empresa identificar posibles mejoras o promociones a ofrecer a los clientes.
 
 ## Manuel:
+Implementar un sistema de recompensas que permita a los clientes acumular puntos por cada reserva de vuelo o hotel que realicen a través de la agencia. Estos puntos podrán ser canjeados por descuentos en futuras reservas o paquetes turísticos.
+
 ## Jorgelina:
 
 Muchas Gracias!
