@@ -43,6 +43,9 @@ public class FlightReservation {
     @Column(name = "amount")
     private Double amount;
 
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
+
     @ManyToMany
     @JoinTable(name = "flight_reservations_people"
             , joinColumns = @JoinColumn(name = "flight_reservations_id")

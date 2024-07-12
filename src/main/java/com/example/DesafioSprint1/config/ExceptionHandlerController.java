@@ -14,7 +14,9 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.time.format.DateTimeParseException;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -141,11 +143,21 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+
     @ExceptionHandler(NoBookingsFlightException.class)
     public ResponseEntity<?> NoBookingsFlightException(Exception e){
         ErrorDTO error = new ErrorDTO("No hay reservas de Vuelos registradas", 404);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+
+
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class, DateTimeParseException.class})
+    public ResponseEntity<String> handleDateParseException(Exception ex) {
+        return new ResponseEntity<>("Fecha invalida. Formato valido : dd-MM-yyyy.", HttpStatus.BAD_REQUEST);
+    }
+
+
 
     ////// VALIDACIONES //////
 
